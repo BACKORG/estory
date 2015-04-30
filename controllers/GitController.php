@@ -6,6 +6,8 @@ class GitController extends \yii\web\Controller{
     public $enableCsrfValidation = false;
 
     public function actionIndex(){
+        echo 'test';
+        exit();
         if(Yii::$app->request->isPost){
             $payload = Yii::$app->request->post('payload');
             $data = json_decode($payload);
