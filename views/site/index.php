@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'PPtube 3';
+$this->title = 'PPtube 4';
 ?>
 <div class="site-index">
 
