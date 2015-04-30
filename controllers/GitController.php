@@ -7,8 +7,8 @@ class GitController extends \yii\web\Controller{
 
     public function actionIndex(){
         if(Yii::$app->request->isPost){
-                exec("git pull", $output);
-                var_dump($output);
+            exec("git pull", $output);
+            var_dump($output);
         }else{
             echo "Invalid request.";
         }
