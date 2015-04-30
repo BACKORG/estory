@@ -9,7 +9,9 @@ use app\assets\AppAsset;
 /* @var $content string */
 
 AppAsset::register($this);
+\yii\web\View::registerJsFile('https://code.jquery.com/jquery-2.1.4.min.js', ['position' => \yii\web\View::POS_HEAD]);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
