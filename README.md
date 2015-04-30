@@ -100,6 +100,8 @@ Technical
 
 - [Yii](http://www.yiiframework.com/) The Fast, Secure and Professional PHP Framework.
 
+- [Python](https://www.python.org/) Python is a programming language that lets you work quickly and integrate systems more effectively.
+
 - [Angularjs](https://angularjs.org/) HTML enhanced for web apps.
 
 - [Mongodb](http://www.mongodb.org/) MongoDB is an open-source, document database designed for ease of development and scaling.
