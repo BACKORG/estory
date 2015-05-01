@@ -5,12 +5,12 @@ use yii\helpers\Html;
 $this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        This is the About page. You may modify the following file to customize its content:
-    </p>
-
-    <code><?= __FILE__ ?></code>
+<div class="about-wrap">
+    <div class="container">
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="https://www.linkedin.com/pub/zhe-xiao/58/3b0/25a" data-format="inline" data-related="false"></script>
+        
+        <script src="//about.me/embed/zhexiao"></script>
+    </div>
 </div>
