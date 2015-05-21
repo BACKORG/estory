@@ -1,5 +1,14 @@
+@mixin css3($property, $value...) {
+    -khtml-#{$property}: $value;
+    -webkit-#{$property}: $value;
+    -moz-#{$property}: $value;
+    -ms-#{$property}: $value;
+    -o-#{$property}: $value;
+    #{$property}: $value;
+}
+
 #w0.navbar{
-    border-radius: 0;
+   @include css3(border-radius, 0);
 }
 
 .contact-wrap{

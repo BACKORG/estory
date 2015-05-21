@@ -1,4 +1,4 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'PPtube';
+$this->title = 'EZStory';
 ?>

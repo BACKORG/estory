@@ -27,7 +27,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
     <?php
         NavBar::begin([
-            'brandLabel' => 'PPtube',
+            'brandLabel' => 'EZStory',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar',
@@ -59,10 +59,7 @@ AppAsset::register($this);
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
-        </div>
+    
     </footer>
 
 <?php $this->endBody() ?>
