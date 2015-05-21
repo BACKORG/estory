@@ -1,14 +1,12 @@
-pptube
+EZStory
 ================================
 
-Find popular videos from the world.
 
 
 DIRECTORY STRUCTURE
 -------------------
 
       assets/             contains assets definition
-      commands/           contains console commands (controllers)
       config/             contains application configurations
       controllers/        contains Web controller classes
       mail/               contains view files for e-mails
@@ -35,14 +33,14 @@ server {
   listen *:80;
   #listen [::]:80 ipv6only=on;
 
-  root /var/www/html/pptube/web;
+  root /var/www/html/EZStory/web;
   index index.php;
 
   # Make site accessible from http://localhost/
-  server_name pp.zhexiao.space;
+  server_name ez.zhexiao.space;
 
-  access_log /var/log/nginx/pp.access.log;
-  error_log /var/log/nginx/pp.error.log;
+  access_log /var/log/nginx/ez.access.log;
+  error_log /var/log/nginx/ez.error.log;
 
   location / {
     # First attempt to serve request as file, then
@@ -77,9 +75,9 @@ server {
 ### Apache
 ```bash
 <VirtualHost *:80>
-    DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/pptube/web"
+    DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/EZStory/web"
 
-    <Directory "/Applications/XAMPP/xamppfiles/htdocs/pptube/web">
+    <Directory "/Applications/XAMPP/xamppfiles/htdocs/EZStory/web">
         # use mod_rewrite for pretty URL support
         RewriteEngine on
         # If a directory or a file exists, use the request directly
@@ -89,9 +87,9 @@ server {
         RewriteRule . index.php
     </Directory>
 
-    ServerName pp.zhexiao.space
-    ErrorLog "logs/pptube.example.com-error_log"
-    CustomLog "logs/pptube.example.com-access_log" common
+    ServerName ez.zhexiao.space
+    ErrorLog "logs/ez.example.com-error_log"
+    CustomLog "logs/ez.example.com-access_log" common
 </VirtualHost>
 ```
 
@@ -100,11 +98,7 @@ Technical
 
 - [Yii](http://www.yiiframework.com/) The Fast, Secure and Professional PHP Framework.
 
-- [Python](https://www.python.org/) Python is a programming language that lets you work quickly and integrate systems more effectively.
-
 - [Angularjs](https://angularjs.org/) HTML enhanced for web apps.
-
-- [Mongodb](http://www.mongodb.org/) MongoDB is an open-source, document database designed for ease of development and scaling.
 
 - [Bootstrap](http://getbootstrap.com/) Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.
 
