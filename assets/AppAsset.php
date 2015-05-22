@@ -23,7 +23,10 @@ class AppAsset extends AssetBundle
 
     public $js = [
         'js/libs/angular.min.js',
-        'js/libs/bootstrap.min.js'
+        'js/libs/angular-route.min.js',
+        'js/libs/bootstrap.min.js',
+        'js/app.js',
+        'js/controller.js'
     ];
 
     public $depends = [

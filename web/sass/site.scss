@@ -28,3 +28,27 @@
         margin: 15px;
     }
 }
+
+#post-wrap{
+    
+}
+#social-wrap{
+    background-color: #f1f1f1;
+
+    .s-w-type{
+        cursor: pointer;
+        text-align: center;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        margin-right: 10px;
+        background-color: #00a8ec;
+        color: #fff;
+    }
+
+    .s-w-type:hover{
+        background-color: #0E4297;
+        @include css3(transition, all 0.6s);
+    }
+}
