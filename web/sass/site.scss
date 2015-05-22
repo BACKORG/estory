@@ -7,7 +7,7 @@
     #{$property}: $value;
 }
 
-#w0.navbar{
+#w0.navbar, .breadcrumb, .form-control, .btn{
    @include css3(border-radius, 0);
 }
 
