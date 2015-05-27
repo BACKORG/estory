@@ -57,6 +57,19 @@ $config = [
             ],
         ],
     ],
+
+    // yii module
+    'modules' => [
+        'social' => [
+           'class' => 'app\modules\social\Module',
+        ],
+    ],
+
+    // external vender package
+    'aliases' => [
+        '@zhexiao' => '@vendor/zhexiao',
+    ],
+
     'params' => $params,
 ];
 

@@ -48,6 +48,10 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
      * @return {[type]}       [description]
      */
     $scope.search = function(event){
-        alert(this.currentSocialType + this.currentSocialSearchType);
+        // get data
+        var url = '/social/' + this.currentSocialType + '/search';
+        $http.get(url).success(function(res) {
+         
+        });
     }
 });
