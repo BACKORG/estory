@@ -4,6 +4,15 @@
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
+
+// define variable
+define('TWITTER_ACCOUNT', 10);
+define('INSTAGRAM_ACCOUNT', 20);
+define('YOUTUBE_ACCOUNT', 30);
+define('REDDIT_ACCOUNT', 40);
+define('VIMEO_ACCOUNT', 50);
+
+
 require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 

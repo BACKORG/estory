@@ -52,7 +52,7 @@ body {
     }
 
     .s-w-type.active{
-        background-color: #fff;
+        background-color: #f8f8f8;
         border: 1px solid #dfdfdf;
         border-bottom: 0;
         @include css3(border-radius, 4px 4px 0 0);
@@ -62,6 +62,7 @@ body {
         border: 1px solid #dfdfdf;
         padding: 20px;
         margin: -2px 10px 0;
+        background-color: #f8f8f8;
     }
 
     .t-s-1{
@@ -92,5 +93,12 @@ body {
             top: 0;
             width: 50px;
         }
+    }
+
+    .s-w-t-output{
+        padding: 20px;
+        margin: 0 10px;
+        border: 1px solid #dfdfdf;
+        border-top: 0;
     }
 }

@@ -16,7 +16,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
         $obj.siblings('i').removeClass('active');
         $obj.addClass('active');
 
-        $scope.currentSocialType = type;
+        this.currentSocialType = type;
     }
 
     /**
@@ -24,7 +24,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
      * @return {[type]} [description]
      */
     $scope.getInputTpl = function(){
-        return '/template/socialInput/' + $scope.currentSocialType + '.html';
+        return '/template/socialInput/' + this.currentSocialType + '.html';
     }
 
     /**
@@ -39,6 +39,15 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
         $obj.siblings('a').removeClass('active');
         $obj.addClass('active');
 
-        $scope.currentSocialSearchType = type;
+        this.currentSocialSearchType = type;
+    }
+
+    /**
+     * search 
+     * @param  {[type]} event [description]
+     * @return {[type]}       [description]
+     */
+    $scope.search = function(event){
+        alert(this.currentSocialType + this.currentSocialSearchType);
     }
 });
