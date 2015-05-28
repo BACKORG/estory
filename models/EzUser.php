@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\behaviors\TimestampBehavior;
 use Yii;
 
 /**
@@ -30,11 +31,29 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['createtime'], 'safe'],
+            [['create_time', 'update_time'], 'safe'],
             [['username', 'password', 'ip'], 'string', 'max' => 45],
             [['email'], 'string', 'max' => 100]
         ];
     }
+
+    /**
+     * behaviors auto save time
+     * @return [type] [description]
+     */
+    public function behaviors(){
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
+                ],
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+
 
     /**
      * @inheritdoc
@@ -46,7 +65,8 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'username' => 'Username',
             'password' => 'Password',
             'email' => 'Email',
-            'createtime' => 'Createtime',
+            'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
             'ip' => 'Ip',
         ];
     }

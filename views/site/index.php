@@ -24,7 +24,7 @@ $this->title = 'EZStory';
         </div>
 
         <div class="s-w-t-output">
-            
+            <div class="s-w-t-o-tpl clearfix" ng-include src="getOutputTpl();"></div>
         </div>
     </div>
 </div>

@@ -10,4 +10,6 @@ interface SocialInterface {
 
     // get token
     public function actionAuth();
+
+    public function actionSearch();
 }

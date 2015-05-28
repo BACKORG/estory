@@ -11,9 +11,15 @@ class BaseController extends Controller{
     // define request variable
     public $request;
 
+    // define user id
+    public $uid;
+
     public function init(){
         $this->session = \Yii::$app->session;
+
         $this->request = \Yii::$app->request;
+
+        $this->uid = \Yii::$app->user->identity->id;
     }
 
 

@@ -3,6 +3,8 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
     $scope.currentSocialType = 'twitter';
     // define default search type is text
     $scope.currentSocialSearchType = 'text';
+    // define output default image path
+    $scope.outputDefaultImg = '/image/arrow-up.png';
 
     /**
      * change social type
@@ -25,6 +27,14 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
      */
     $scope.getInputTpl = function(){
         return '/template/socialInput/' + this.currentSocialType + '.html';
+    }
+
+    /**
+     * get social output template
+     * @return {[type]} [description]
+     */
+    $scope.getOutputTpl = function(){
+        return '/template/socialOutput/' + this.currentSocialType + '.html';
     }
 
     /**

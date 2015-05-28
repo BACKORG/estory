@@ -2,7 +2,6 @@
 namespace app\modules\social\controllers;
 
 use yii\web\Controller;
-use zhexiao;
 
 class TwitterController extends BaseController implements SocialInterface{
     // define the codebird variable
@@ -64,8 +63,25 @@ class TwitterController extends BaseController implements SocialInterface{
         $this->_codebird->setToken($res['oauth_token'], $res['oauth_token_secret']);
         $twitterUser = $this->getTwitterUser($res['user_id']);
 
-        echo '<pre>';
-        print_r($twitterUser);
+        // save to database
+        $parameters = [
+            'uid' => $this->uid,
+            'screen_name' => $twitterUser[0]['screen_name'],
+            'profile_image_url' => $twitterUser[0]['profile_image_url'],
+            'auth_token' => $oauth_token,
+            'auth_secret' => $oauth_secret
+        ];
+        $ezTwitter = new \app\models\EzTwitter;
+        $ezTwitter->setAttributes($parameters);
+        $ezTwitter->save();
+    }
+
+    /**
+     * search 
+     * @return [type] [description]
+     */
+    public function actionSearch(){
+
     }
 
     /**

@@ -6,4 +6,5 @@ return [
     'username' => 'root',
     'password' => 'xiaozhe',
     'charset' => 'utf8',
+    'tablePrefix' => 'ez_',
 ];
