@@ -35,8 +35,7 @@ class EzTwitter extends \yii\db\ActiveRecord
             [
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
-                    \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time'],
                 ],
                 'value' => new \yii\db\Expression('NOW()'),
             ],
@@ -51,7 +50,8 @@ class EzTwitter extends \yii\db\ActiveRecord
         return [
             [['uid'], 'integer'],
             [['auth_token', 'auth_secret'], 'string'],
-            [['create_time', 'update_time'], 'safe'],
+            [['create_time'], 'safe'],
+            [['id_str'], 'string', 'max' => 30],
             [['screen_name'], 'string', 'max' => 100],
             [['profile_image_url'], 'string', 'max' => 200]
         ];
@@ -65,12 +65,44 @@ class EzTwitter extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'uid' => 'Uid',
+            'id_str' => 'Twitter ID String',
             'screen_name' => 'Screen Name',
             'profile_image_url' => 'Profile Image Url',
             'auth_token' => 'Auth Token',
             'auth_secret' => 'Auth Secret',
             'create_time' => 'Create Time',
-            'update_time' => 'Update Time'
         ];
+    }
+
+    /**
+     * insert or update data
+     * @param  [type] $parameters [description]
+     * @return [type]             [description]
+     */
+    public static function insert_update($parameters){
+        $ezTwitter = new self;
+
+        // if exist id, update data
+        if(isset($parameters['id']) && !empty($parameters['id'])){
+            $ezTwitter->updateAll($parameters, 'id='.$parameters['id']);
+
+        // if new model, insert data
+        }else{
+            $ezTwitter->setAttributes($parameters);
+            $ezTwitter->save();
+        }
+    }
+
+    /**
+     * find user twitter account
+     * @param  [type] $uid [description]
+     * @return [type]      [description]
+     */
+    public static function userTwitter($uid){
+        $data = self::findAll([
+            'uid' => $uid
+        ]);
+
+        return $data;
     }
 }

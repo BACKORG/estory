@@ -31,7 +31,7 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['create_time', 'update_time'], 'safe'],
+            [['create_time'], 'safe'],
             [['username', 'password', 'ip'], 'string', 'max' => 45],
             [['email'], 'string', 'max' => 100]
         ];
@@ -46,8 +46,7 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
-                    \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time'],
                 ],
                 'value' => new \yii\db\Expression('NOW()'),
             ],
@@ -66,7 +65,6 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'password' => 'Password',
             'email' => 'Email',
             'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
             'ip' => 'Ip',
         ];
     }

@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
 --
--- Host: localhost    Database: ezstory
+-- Host: 127.0.0.1    Database: ezstory
 -- ------------------------------------------------------
 -- Server version	5.6.21
 
@@ -25,14 +25,14 @@ DROP TABLE IF EXISTS `ez_twitter`;
 CREATE TABLE `ez_twitter` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(10) unsigned DEFAULT NULL,
+  `id_str` varchar(30) DEFAULT NULL,
   `screen_name` varchar(100) DEFAULT NULL,
   `profile_image_url` varchar(200) DEFAULT NULL,
   `auth_token` text,
   `auth_secret` text,
   `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `ez_twitter` (
 
 LOCK TABLES `ez_twitter` WRITE;
 /*!40000 ALTER TABLE `ez_twitter` DISABLE KEYS */;
-INSERT INTO `ez_twitter` VALUES (1,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','CeCu5PWzBCU29evEmuR5CkokdduRjvxZ','su0PY3ODFZMoDbgKEvQxjfQbW1hHlqnR','0000-00-00 00:00:00','2015-05-28 00:00:00'),(2,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','s42WLFbMVHwKaYbGNYxNmJSBVqDuMQzj','KpBqpMKvifO5AQH15dp2sYPKQ2bEgcHo','0000-00-00 00:00:00','2015-05-28 00:00:00'),(3,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','hU0ocT8cueDDrAXbF1J6QIsYqAYc6KZj','vuLFSKTyMUzu3hItBIWIuco7jzIMXZGc','0000-00-00 00:00:00','2015-05-28 00:00:00'),(4,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','KEep2IjTQdDdFy2HRuZKH9j63yBflu8K','SGtBFjLmN2LPltHe6FOHRKSSYoT44f8h','0000-00-00 00:00:00','2015-05-28 00:00:00'),(5,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','7VNgoWQLefTzSXLNV9r0NIZNYcEwCKj5','U7gy22TKiEiQqZQYiq1Vj7o1wxGyiek7','0000-00-00 00:00:00','2015-05-28 00:00:00'),(6,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','FWviXgBnQiqGkBg4CJnEmwzPQ41Px5Sd','4EcZDQczjnvdG76MVQtYxzAuba0f818X','0000-00-00 00:00:00','0000-00-00 00:00:00'),(7,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','qfnUYLLtnyqsZ03XZDS6dtNBFXnAcFwa','tukTPmj2N4g70nc2wIqn5iXFzdmhLeLt','2015-05-28 00:18:00','2015-05-28 00:18:00'),(8,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','qfnUYLLtnyqsZ03XZDS6dtNBFXnAcFwa','tukTPmj2N4g70nc2wIqn5iXFzdmhLeLt','2015-05-28 00:20:38','2015-05-28 00:20:38'),(9,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','VUNPGZTvsZhU4hIH0EUSBKa7VVpqadv3','iowklLl6nhyxILmiQEGf1zhrkw2ebfm6','2015-05-28 00:20:46','2015-05-28 00:20:46'),(10,1,'zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','gf3vyGbswd893ovMHzv2Ss4ZQy89laMa','j4LWtriGKtopS6aHW4LkJLnUNUR8iO1W','2015-05-28 11:04:12','2015-05-28 11:04:12');
+INSERT INTO `ez_twitter` VALUES (1,1,'438198895','zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','k14VLH0dxCPJgqpABktM3mYb6LtJTYRK','1U7BqBDVGUMj9VoavoGGzn8BEyfrzFSV','2015-05-28 22:12:01');
 /*!40000 ALTER TABLE `ez_twitter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,6 @@ CREATE TABLE `ez_user` (
   `email` varchar(100) DEFAULT NULL,
   `ip` varchar(45) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -70,7 +69,7 @@ CREATE TABLE `ez_user` (
 
 LOCK TABLES `ez_user` WRITE;
 /*!40000 ALTER TABLE `ez_user` DISABLE KEYS */;
-INSERT INTO `ez_user` VALUES (1,'zhexiao','31efe5c727df3e9f116cd46fbb5b2626','zhexiao@163.com','127.0.0.1',NULL,NULL);
+INSERT INTO `ez_user` VALUES (1,'zhexiao','31efe5c727df3e9f116cd46fbb5b2626','zhexiao@163.com','127.0.0.1',NULL);
 /*!40000 ALTER TABLE `ez_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-28 11:05:05
+-- Dump completed on 2015-05-28 22:24:42

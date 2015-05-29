@@ -66,14 +66,21 @@ class TwitterController extends BaseController implements SocialInterface{
         // save to database
         $parameters = [
             'uid' => $this->uid,
+            'id_str' => $twitterUser[0]['id_str'],
             'screen_name' => $twitterUser[0]['screen_name'],
             'profile_image_url' => $twitterUser[0]['profile_image_url'],
             'auth_token' => $oauth_token,
             'auth_secret' => $oauth_secret
         ];
-        $ezTwitter = new \app\models\EzTwitter;
-        $ezTwitter->setAttributes($parameters);
-        $ezTwitter->save();
+
+        // check data exist or not
+        $ezTwitterData = \app\models\EzTwitter::find()->where(['id_str' => $parameters['id_str']])->one();
+        if($ezTwitterData){
+            // add primary key to parameters, so i will update the data
+            $parameters['id'] = $ezTwitterData->id;
+        }
+
+        \app\models\EzTwitter::insert_update($parameters);
     }
 
     /**
@@ -81,7 +88,9 @@ class TwitterController extends BaseController implements SocialInterface{
      * @return [type] [description]
      */
     public function actionSearch(){
-
+        $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
+        echo '<pre>';
+        print_r($uTwitter[0]->screen_name);
     }
 
     /**
