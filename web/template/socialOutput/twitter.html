@@ -1,1 +1,8 @@
-<img ng-src="{{outputDefaultImg}}" />
+<div class="text-center" ng-if="!removeGuide">
+    <img ng-src="{{outputDefaultImg}}" />
+</div>
+
+<div ng-if="noAccount">
+    <div ng-bind-html="noAccountMessage"></div>
+</div>
+

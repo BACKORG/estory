@@ -1,4 +1,4 @@
-ezstory.controller('socialCtrl', function($scope, $http, $timeout){
+ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     // define currently social type, default is twitter
     $scope.currentSocialType = 'twitter';
     // define default search type is text
@@ -58,10 +58,27 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout){
      * @return {[type]}       [description]
      */
     $scope.search = function(event){
-        // get data
+        var $obj = $(event.target);
+        $scope.removeGuide = true;
+        $scope.noAccount = false;
+
+        // build url
         var url = '/social/' + this.currentSocialType + '/search';
-        $http.get(url).success(function(res) {
-         
-        });
+        var data = {
+            keyword : $obj.siblings('input').val()
+        }
+
+        // post data
+        $http({
+         method: 'POST',
+         url: url,
+         data: $.param(data),
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(res){
+            if(res.error){
+                $scope.noAccount = true;
+                $scope.noAccountMessage = $sce.trustAsHtml( res.message );
+            }
+        })
     }
 });

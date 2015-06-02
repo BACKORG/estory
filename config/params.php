@@ -3,8 +3,8 @@ if(YII_ENV_DEV){
     // development
     return [
         'adminEmail' => 'admin@example.com',
-        'TWITTER_CONSUMER_KEY' => 'gwbn7q3oHWgrVLpmRBin8ld6P',
-        'TWITTER_CONSUMER_SECRET' => 'n0BptDEWuThYVglyKEsjmGhzo4EAD9lE2bgYPRrQbxNN09Djgu',
+        'TWITTER_CONSUMER_KEY' => 'DIuqIlfEIKcrucTKukqVTHJb7',
+        'TWITTER_CONSUMER_SECRET' => 'xx2iBp6jw79RqMgtvEJk9CzBXjdxQWfYKGTUOtVeLg11N8tvXN',
         'TWITTER_CALLBACK_URL' => 'http://local.ez.com/social/twitter/auth',
         'INSTAGRAM_CLIENT_ID' => '3bd4a779086f467da618c95fe4e54cb7',
         'INSTAGRAM_CLIENT_SECRET' => 'b3589f1b833445ba927058e3de9f8dd8',
@@ -17,8 +17,8 @@ if(YII_ENV_DEV){
     // production
     return [
         'adminEmail' => 'admin@example.com',
-        'TWITTER_CONSUMER_KEY' => 'gwbn7q3oHWgrVLpmRBin8ld6P',
-        'TWITTER_CONSUMER_SECRET' => 'n0BptDEWuThYVglyKEsjmGhzo4EAD9lE2bgYPRrQbxNN09Djgu',
+        'TWITTER_CONSUMER_KEY' => 'DIuqIlfEIKcrucTKukqVTHJb7',
+        'TWITTER_CONSUMER_SECRET' => 'xx2iBp6jw79RqMgtvEJk9CzBXjdxQWfYKGTUOtVeLg11N8tvXN',
         'TWITTER_CALLBACK_URL' => 'http://ez.zhexiao.space/social/twitter/auth',
         'INSTAGRAM_CLIENT_ID' => '1bbdad644b5443829415d58f58b1e63c',
         'INSTAGRAM_CLIENT_SECRET' => 'c1893512b55649b8a3193f1d05aa678a',

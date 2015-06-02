@@ -7,9 +7,6 @@ class TwitterController extends BaseController implements SocialInterface{
     // define the codebird variable
     private $_codebird;
 
-    // define the output data
-    private $_output = ['error' => false];
-
     /**
      * initialization controller
      * @return [type] [description]
@@ -69,8 +66,8 @@ class TwitterController extends BaseController implements SocialInterface{
             'id_str' => $twitterUser[0]['id_str'],
             'screen_name' => $twitterUser[0]['screen_name'],
             'profile_image_url' => $twitterUser[0]['profile_image_url'],
-            'auth_token' => $oauth_token,
-            'auth_secret' => $oauth_secret
+            'auth_token' => $res['oauth_token'],
+            'auth_secret' => $res['oauth_token_secret']
         ];
 
         // check data exist or not
@@ -79,8 +76,9 @@ class TwitterController extends BaseController implements SocialInterface{
             // add primary key to parameters, so i will update the data
             $parameters['id'] = $ezTwitterData->id;
         }
-
         \app\models\EzTwitter::insert_update($parameters);
+
+        $this->redirect('/');
     }
 
     /**
@@ -89,8 +87,21 @@ class TwitterController extends BaseController implements SocialInterface{
      */
     public function actionSearch(){
         $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
-        echo '<pre>';
-        print_r($uTwitter[0]->screen_name);
+        if(count($uTwitter) > 0){
+            $this->keyword = $this->request->get('keyword');
+            foreach ($uTwitter as $act) {
+                $this->_codebird->setToken($act->auth_token, $act->auth_secret);
+                $response = $this->_codebird->search_tweets('q=nba', true);
+                
+                echo '<pre>';
+                print_r($response);     
+            }
+        }else{
+            $this->_output['error'] = true;
+            $this->_output['message'] = $this->renderPartial('no_account', array(), true);
+
+            $this->outputJson($this->_output); 
+        }
     }
 
     /**
