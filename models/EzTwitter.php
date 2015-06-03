@@ -2,19 +2,24 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "ez_twitter".
+ * This is the model class for table "{{%twitter}}".
  *
  * @property integer $id
  * @property integer $uid
+ * @property string $id_str
  * @property string $screen_name
  * @property string $profile_image_url
  * @property string $auth_token
  * @property string $auth_secret
- * @property string $createtime
+ * @property string $create_time
+ * @property string $update_time
+ * @property integer $delete
+ *
+ * @property User $u
  */
 class EzTwitter extends \yii\db\ActiveRecord
 {
@@ -23,7 +28,7 @@ class EzTwitter extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'ez_twitter';
+        return '{{%twitter}}';
     }
 
     /**
@@ -34,9 +39,8 @@ class EzTwitter extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time'],
-                ],
+                'createdAtAttribute' => 'create_time',
+                'updatedAtAttribute' => 'update_time',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
         ];
@@ -48,9 +52,9 @@ class EzTwitter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid'], 'integer'],
+            [['uid', 'delete'], 'integer'],
             [['auth_token', 'auth_secret'], 'string'],
-            [['create_time'], 'safe'],
+            [['create_time', 'update_time'], 'safe'],
             [['id_str'], 'string', 'max' => 30],
             [['screen_name'], 'string', 'max' => 100],
             [['profile_image_url'], 'string', 'max' => 200]
@@ -65,32 +69,46 @@ class EzTwitter extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'uid' => 'Uid',
-            'id_str' => 'Twitter ID String',
+            'id_str' => 'Id Str',
             'screen_name' => 'Screen Name',
             'profile_image_url' => 'Profile Image Url',
             'auth_token' => 'Auth Token',
             'auth_secret' => 'Auth Secret',
             'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
+            'delete' => 'Delete',
         ];
     }
 
     /**
-     * insert or update data
+     * @return \yii\db\ActiveQuery
+     */
+    public function getU()
+    {
+        return $this->hasOne(User::className(), ['id' => 'uid']);
+    }
+
+
+    /**
+     * insert data
      * @param  [type] $parameters [description]
      * @return [type]             [description]
      */
-    public static function insert_update($parameters){
+    public static function insertDt($parameters){
         $ezTwitter = new self;
+        $ezTwitter->setAttributes($parameters);
+        $ezTwitter->save();
+    }
 
-        // if exist id, update data
-        if(isset($parameters['id']) && !empty($parameters['id'])){
-            $ezTwitter->updateAll($parameters, 'id='.$parameters['id']);
-
-        // if new model, insert data
-        }else{
-            $ezTwitter->setAttributes($parameters);
-            $ezTwitter->save();
-        }
+    /**
+     * update data
+     * @param  [type] $parameters [description]
+     * @return [type]             [description]
+     */
+    public static function updateDt($id, $parameters){
+        $ezTwitter = self::findOne($id);
+        $ezTwitter->setAttributes($parameters);
+        $ezTwitter->save();
     }
 
     /**

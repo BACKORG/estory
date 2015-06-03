@@ -31,8 +31,12 @@ CREATE TABLE `ez_twitter` (
   `auth_token` text,
   `auth_secret` text,
   `create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `update_time` datetime DEFAULT NULL,
+  `delete` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid_idx` (`uid`),
+  CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +45,7 @@ CREATE TABLE `ez_twitter` (
 
 LOCK TABLES `ez_twitter` WRITE;
 /*!40000 ALTER TABLE `ez_twitter` DISABLE KEYS */;
-INSERT INTO `ez_twitter` VALUES (1,1,'438198895','zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','k14VLH0dxCPJgqpABktM3mYb6LtJTYRK','1U7BqBDVGUMj9VoavoGGzn8BEyfrzFSV','2015-05-28 22:12:01');
+INSERT INTO `ez_twitter` VALUES (5,1,'2872411641','zoclezhe123','http://pbs.twimg.com/profile_images/532201283004813314/lwDmr-rD_normal.jpeg','2872411641-kvIVSn0I5Tp6wIspvAzx7o7RFr2prEgZmn1gI4k','YJd0tlAYyuFwkyTBqyd8tx4VbjpPvpKFj1WWqV8Qi18Re','2015-06-02 22:30:30','2015-06-02 22:31:30',0);
 /*!40000 ALTER TABLE `ez_twitter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,8 +61,9 @@ CREATE TABLE `ez_user` (
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `ip` varchar(45) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -69,7 +74,7 @@ CREATE TABLE `ez_user` (
 
 LOCK TABLES `ez_user` WRITE;
 /*!40000 ALTER TABLE `ez_user` DISABLE KEYS */;
-INSERT INTO `ez_user` VALUES (1,'zhexiao','31efe5c727df3e9f116cd46fbb5b2626','zhexiao@163.com','127.0.0.1',NULL);
+INSERT INTO `ez_user` VALUES (1,'zhexiao','31efe5c727df3e9f116cd46fbb5b2626','zhexiao@163.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `ez_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +87,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-28 22:24:42
+-- Dump completed on 2015-06-02 22:33:19

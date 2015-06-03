@@ -2,18 +2,22 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "ez_user".
+ * This is the model class for table "{{%user}}".
  *
  * @property integer $id
  * @property string $username
  * @property string $password
  * @property string $email
- * @property string $createtime
  * @property string $ip
+ * @property string $create_time
+ * @property string $update_time
+ * @property integer $delete
+ *
+ * @property Twitter[] $twitters
  */
 class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -22,7 +26,7 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function tableName()
     {
-        return 'ez_user';
+        return '{{%user}}';
     }
 
     /**
@@ -31,11 +35,13 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['create_time'], 'safe'],
-            [['username', 'password', 'ip'], 'string', 'max' => 45],
+            [['create_time', 'update_time'], 'safe'],
+            [['delete'], 'integer'],
+            [['username', 'password'], 'string', 'max' => 45],
             [['email'], 'string', 'max' => 100]
         ];
     }
+
 
     /**
      * behaviors auto save time
@@ -45,14 +51,12 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             [
                 'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_time'],
-                ],
+                'createdAtAttribute' => 'create_time',
+                'updatedAtAttribute' => 'update_time',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
         ];
     }
-
 
     /**
      * @inheritdoc
@@ -65,8 +69,17 @@ class EzUser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'password' => 'Password',
             'email' => 'Email',
             'create_time' => 'Create Time',
-            'ip' => 'Ip',
+            'update_time' => 'Update Time',
+            'delete' => 'Delete',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTwitters()
+    {
+        return $this->hasMany(Twitter::className(), ['uid' => 'id']);
     }
 
     /**

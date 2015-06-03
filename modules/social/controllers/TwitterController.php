@@ -71,12 +71,12 @@ class TwitterController extends BaseController implements SocialInterface{
         ];
 
         // check data exist or not
-        $ezTwitterData = \app\models\EzTwitter::find()->where(['id_str' => $parameters['id_str']])->one();
+        $ezTwitterData = \app\models\EzTwitter::findOne(['id_str' => $parameters['id_str']]);
         if($ezTwitterData){
-            // add primary key to parameters, so i will update the data
-            $parameters['id'] = $ezTwitterData->id;
+            \app\models\EzTwitter::updateDt($ezTwitterData->id, $parameters);
+        }else{
+            \app\models\EzTwitter::insertDt($parameters);
         }
-        \app\models\EzTwitter::insert_update($parameters);
 
         $this->redirect('/');
     }
