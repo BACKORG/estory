@@ -88,13 +88,19 @@ class TwitterController extends BaseController implements SocialInterface{
     public function actionSearch(){
         $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
         if(count($uTwitter) > 0){
-            $this->keyword = $this->request->get('keyword');
+            $this->keyword = $this->request->post('keyword');
             foreach ($uTwitter as $act) {
                 $this->_codebird->setToken($act->auth_token, $act->auth_secret);
-                $response = $this->_codebird->search_tweets('q=nba', true);
+                $response = $this->_codebird->search_tweets('q='.$this->keyword.'&count='.$this->count, true);
                 
-                echo '<pre>';
-                print_r($response);     
+                if($response['httpstatus'] == 200 ){
+                    $this->_output['data'] = $response['statuses'];
+
+                    $this->outputJson( $this->_output );
+                    break;
+                }
+
+                continue;
             }
         }else{
             $this->_output['error'] = true;

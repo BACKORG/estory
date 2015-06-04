@@ -61,23 +61,28 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         var $obj = $(event.target);
         $scope.removeGuide = true;
         $scope.noAccount = false;
+        $scope.socialDataExist = false;
 
         // build url
         var url = '/social/' + this.currentSocialType + '/search';
         var data = {
-            keyword : $obj.siblings('input').val()
+            keyword : $obj.closest('.t-s-search-input-wrap').find('.search-keyword').val()
         }
 
         // post data
+        $scope.socialData = [];
         $http({
-         method: 'POST',
-         url: url,
-         data: $.param(data),
-         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            method: 'POST',
+            url: url,
+            data: $.param(data),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(res){
             if(res.error){
                 $scope.noAccount = true;
                 $scope.noAccountMessage = $sce.trustAsHtml( res.message );
+            }else{
+                $scope.socialDataExist = true;
+                $scope.socialData = res.data;
             }
         })
     }

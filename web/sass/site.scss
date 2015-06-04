@@ -96,9 +96,51 @@ body {
     }
 
     .s-w-t-output{
-        padding: 20px;
         margin: 0 10px;
         border: 1px solid #dfdfdf;
         border-top: 0;
+    }
+}
+
+.default-output-img{
+    padding: 10px;
+}
+
+.no-social-account{
+    padding: 10px 10px 20px;
+
+    .btn{
+        margin-top: 20px;
+    }
+}
+
+.social-data-wrap{
+    .s-d-individual{
+        padding: 20px;
+        border-bottom: 1px solid #dfdfdf;
+
+        a{
+            color: #666;
+            text-decoration: none;
+        }
+
+        .s-n-i-stats{
+            padding: 10px 0;
+            color: #666;
+
+            span{
+                margin-right: 20px;
+                .fa{
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+    .s-d-individual:hover{
+        a{
+            @include css3(transition, all 0.6s);
+            color: #3a98d9;
+        }
     }
 }
