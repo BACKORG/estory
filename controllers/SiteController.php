@@ -46,8 +46,11 @@ class SiteController extends \yii\web\Controller{
         ];
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex(){
+        if(\Yii::$app->user->isGuest){
+           $this->redirect('/site/login'); 
+        }
+        
         return $this->render('index');
     }
 
