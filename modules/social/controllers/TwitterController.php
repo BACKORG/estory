@@ -116,7 +116,7 @@ class TwitterController extends BaseController implements SocialInterface{
                     // check return status
                     if($response['httpstatus'] == 200 ){
                         // set new cache
-                        $this->cache->set( $this->cache_name, $response);
+                        $this->cache->set( $this->cache_name, $response, CACHE_TIME);
 
                         switch ($this->keyword_type) {
                             case 'text':

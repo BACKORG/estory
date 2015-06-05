@@ -83,7 +83,7 @@ class InstagramController extends BaseController implements SocialInterface{
                     // check return status
                     if($response['meta']['code'] == 200 ){    
                         // set new cache
-                        $this->cache->set( $this->cache_name, $response);
+                        $this->cache->set( $this->cache_name, $response, CACHE_TIME);
 
                         $this->_output['data'] = $response['data'];                  
                         $this->outputJson( $this->_output );

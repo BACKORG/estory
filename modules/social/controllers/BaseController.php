@@ -45,7 +45,7 @@ class BaseController extends Controller{
 
         $this->uid = \Yii::$app->user->identity->id;
 
-        $this->keyword = $this->request->post('keyword');
+        $this->keyword = urlencode($this->request->post('keyword'));
 
         $this->keyword_type = $this->request->post('keyword_type');
     }
