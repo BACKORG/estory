@@ -20,6 +20,9 @@ class BaseController extends Controller{
     // define search keyword
     public $keyword;
 
+    // define search keyword type
+    public $keyword_type;
+
     // define search count
     public $count = 30;
     

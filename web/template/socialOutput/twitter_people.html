@@ -14,34 +14,34 @@
     <div class="s-d-individual" ng-repeat="post in socialData">
         <div class="media">
             <div class="media-left">
-                <a href="https://twitter.com/{{post.user.screen_name}}" target="_blank">
-                    <img class="media-object" ng-src="{{post.user.profile_image_url}}">
+                <a href="https://twitter.com/{{post.screen_name}}" target="_blank">
+                    <img class="media-object" ng-src="{{post.profile_image_url}}">
                 </a>
             </div>
 
             <div class="media-body">
                 <h4 class="media-heading">
-                    {{post.user.name}}
-                    <small>@{{post.user.screen_name}}</small>
+                    <a href="https://twitter.com/{{post.screen_name}}" target="_blank">{{post.name}}</a>
+                    <small>@{{post.screen_name}}</small>
                 </h4>
 
                 <div class="m-b-detail">
-                    <a href="https://twitter.com/{{post.user.screen_name}}/status/{{post.id_str}}" target="_blank">
-                        {{post.text}}
-                    </a>
+                    <div>
+                        {{post.description}}
+                    </div>
 
                     <div class="s-n-i-stats">
                         <span>
-                            <i class="fa fa-star"></i>{{post.favorite_count}}
+                            Tweets <small>{{post.statuses_count | megaNumber}}</small>
                         </span>
 
                         <span>
-                            <i class="fa fa-retweet"></i>{{post.retweet_count}}
+                            Followers <small>{{post.followers_count | megaNumber}}</small>
                         </span>
-                    </div>
 
-                    <div class="text-right">
-                       <time>{{post.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</time>
+                        <span>
+                            Following <small>{{post.friends_count | megaNumber}}</small>
+                        </span>
                     </div>
                 </div>
             </div>

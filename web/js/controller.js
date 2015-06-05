@@ -18,7 +18,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         $obj.siblings('i').removeClass('active');
         $obj.addClass('active');
 
-        this.currentSocialType = type;
+        $scope.currentSocialType = type;
     }
 
     /**
@@ -26,7 +26,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
      * @return {[type]} [description]
      */
     $scope.getInputTpl = function(){
-        return '/template/socialInput/' + this.currentSocialType + '.html';
+        return '/template/socialInput/' + $scope.currentSocialType + '.html';
     }
 
     /**
@@ -34,7 +34,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
      * @return {[type]} [description]
      */
     $scope.getOutputTpl = function(){
-        return '/template/socialOutput/' + this.currentSocialType + '.html';
+        return '/template/socialOutput/' + $scope.currentSocialType + '_' + $scope.currentSocialSearchType + '.html';
     }
 
     /**
@@ -49,7 +49,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         $obj.siblings('a').removeClass('active');
         $obj.addClass('active');
 
-        this.currentSocialSearchType = type;
+        $scope.currentSocialSearchType = type;
     }
 
     /**
@@ -61,12 +61,12 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         var $obj = $(event.target);
         $scope.removeGuide = true;
         $scope.noAccount = false;
-        $scope.socialDataExist = false;
 
         // build url
         var url = '/social/' + this.currentSocialType + '/search';
         var data = {
-            keyword : $obj.closest('.t-s-search-input-wrap').find('.search-keyword').val()
+            keyword : $obj.closest('.t-s-search-input-wrap').find('.search-keyword').val(),
+            keyword_type : $scope.currentSocialSearchType
         }
 
         // post data
@@ -81,7 +81,6 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
                 $scope.noAccount = true;
                 $scope.noAccountMessage = $sce.trustAsHtml( res.message );
             }else{
-                $scope.socialDataExist = true;
                 $scope.socialData = res.data;
             }
         })
