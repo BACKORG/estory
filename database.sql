@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: ezstory
+-- Host: localhost    Database: ezstory
 -- ------------------------------------------------------
 -- Server version	5.6.21
 
@@ -14,6 +14,40 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `ez_instagram`
+--
+
+DROP TABLE IF EXISTS `ez_instagram`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ez_instagram` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned DEFAULT NULL,
+  `instagram_id` int(10) unsigned DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL,
+  `access_token` text,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid_idx` (`uid`),
+  CONSTRAINT `instagram_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ez_instagram`
+--
+
+LOCK TABLES `ez_instagram` WRITE;
+/*!40000 ALTER TABLE `ez_instagram` DISABLE KEYS */;
+INSERT INTO `ez_instagram` VALUES (1,1,305096535,'zhexiao27','Zhe Xiao','https://igcdn-photos-e-a.akamaihd.net/hphotos-ak-xap1/t51.2885-19/10903566_326384917568780_109872916_a.jpg','305096535.3bd4a77.7e1ce8cf204446b98d38aa2d7c4cd75f','2015-06-05 13:34:12','2015-06-05 13:35:19',NULL);
+/*!40000 ALTER TABLE `ez_instagram` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ez_twitter`
@@ -35,7 +69,7 @@ CREATE TABLE `ez_twitter` (
   `delete` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid_idx` (`uid`),
-  CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `twitter_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -87,4 +121,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-02 22:33:19
+-- Dump completed on 2015-06-05 15:37:44

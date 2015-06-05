@@ -1,17 +1,24 @@
+<!-- default guid message -->
 <div class="text-center default-output-img" ng-if="!removeGuide">
     <img ng-src="{{outputDefaultImg}}" />
 </div>
 
+<!-- user don't have social account message -->
 <div class="no-social-account" ng-if="noAccount">
     <div ng-bind-html="noAccountMessage"></div>
 </div>
 
+<!-- main output data -->
 <div class="social-data-wrap">
+    <div class="text-center" ng-if="searchLoading">
+        <strong>{{searchLoading}}</strong>
+    </div>
+    
     <div class="text-center" ng-if="socialData.length == 0">
-        <strong>Loading...</strong>
+        <strong>No Data Exist.</strong>
     </div>
 
-    <div class="s-d-individual" ng-repeat="post in socialData">
+    <div class="s-d-individual" ng-if="socialData.length > 0" ng-repeat="post in socialData">
         <div class="media">
             <div class="media-left">
                 <a href="https://twitter.com/{{post.screen_name}}" target="_blank">

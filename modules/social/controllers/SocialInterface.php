@@ -11,5 +11,6 @@ interface SocialInterface {
     // get token
     public function actionAuth();
 
+    // search functionality
     public function actionSearch();
 }

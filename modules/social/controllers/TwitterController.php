@@ -1,8 +1,6 @@
 <?php
 namespace app\modules\social\controllers;
 
-use yii\web\Controller;
-
 class TwitterController extends BaseController implements SocialInterface{
     // define the codebird variable
     private $_codebird;
@@ -86,46 +84,67 @@ class TwitterController extends BaseController implements SocialInterface{
      * @return [type] [description]
      */
     public function actionSearch(){
-        $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
-        if(count($uTwitter) > 0){
-            $this->keyword = $this->request->post('keyword');
-            $this->keyword_type = $this->request->post('keyword_type');
+        if(!empty($this->keyword)){
+            // set cache name
+            $this->cache_name = 'twitter_' . $this->keyword .'_' .$this->keyword_type;
+            
+            // check social account
+            $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
+            if(count($uTwitter) > 0){
+                foreach ($uTwitter as $act) {
+                    $this->_codebird->setToken($act->auth_token, $act->auth_secret);
 
-            foreach ($uTwitter as $act) {
-                $this->_codebird->setToken($act->auth_token, $act->auth_secret);
+                    // get cache data
+                    $response = $this->cache->get( $this->cache_name );
+                    if($response === false){
+                        // get api data
+                        switch ($this->keyword_type) {
+                            case 'text':
+                                $response = $this->_codebird->search_tweets('q='.$this->keyword.'&count='.$this->count, true);                  
+                            break;
+                            
+                            case 'people':
+                                $response = $this->_codebird->users_search(array(
+                                    'q' => $this->keyword,
+                                    'page'=> '1',
+                                    'count'=> $this->count,
+                                ));                       
+                            break;
+                        }
+                    }
 
-                switch ($this->keyword_type) {
-                    case 'text':
-                        $response = $this->_codebird->search_tweets('q='.$this->keyword.'&count='.$this->count, true);
-                        $this->_output['data'] = $response['statuses'];
-                    break;
-                    
-                    case 'people':
-                        $response = $this->_codebird->users_search(array(
-                            'q' => $this->keyword,
-                            'page'=> '1',
-                            'count'=> $this->count,
-                        ));
+                    // check return status
+                    if($response['httpstatus'] == 200 ){
+                        // set new cache
+                        $this->cache->set( $this->cache_name, $response);
 
-                        $this->_output['data'] = $response;
-                        unset($this->_output['data']['httpstatus']);
-                        unset($this->_output['data']['rate']);
-                    break;
+                        switch ($this->keyword_type) {
+                            case 'text':
+                                $this->_output['data'] = $response['statuses'];
+                            break;
+                            
+                            case 'people':
+                               $this->_output['data'] = $response;
+                               unset($this->_output['data']['httpstatus']);
+                               unset($this->_output['data']['rate']);
+                            break;
+                        }
+
+                        $this->outputJson( $this->_output );
+
+                        // if http status success, break loop
+                        break;
+                    }
+
+                    // if exist error, continue
+                    continue;
                 }
-                
-                
-                if($response['httpstatus'] == 200 ){
-                    $this->outputJson( $this->_output );
-                    break;
-                }
+            }else{
+                $this->_output['error'] = true;
+                $this->_output['message'] = $this->renderPartial('no_account', array(), true);
 
-                continue;
+                $this->outputJson($this->_output); 
             }
-        }else{
-            $this->_output['error'] = true;
-            $this->_output['message'] = $this->renderPartial('no_account', array(), true);
-
-            $this->outputJson($this->_output); 
         }
     }
 

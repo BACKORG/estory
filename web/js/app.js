@@ -15,7 +15,7 @@ var ezstory = angular.module('ezstory', [
 
 
 /**
- * define number filters
+ * number filters
  * @return {[type]}     [description]
  */
 ezstory.filter("megaNumber", function(){
@@ -54,5 +54,16 @@ ezstory.filter("megaNumber", function(){
         }
         
         return (isNegative ? '-' : '') + abs + key;
+    }
+});
+
+/**
+ * convert datetime to timezone
+ * @return {[type]}     [description]
+ */
+ezstory.filter("convert2Timezone", function(){
+    return function(number){
+        var d = new Date(number);
+        return d.getTime();
     }
 });
