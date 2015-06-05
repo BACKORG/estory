@@ -10,8 +10,7 @@ angular.element(document).ready(function () {
  * @type {[type]}
  */
 var ezstory = angular.module('ezstory', [
-    'ngRoute',
-    'numberFilters'
+    'ngRoute', 
 ]);
 
 
@@ -19,7 +18,7 @@ var ezstory = angular.module('ezstory', [
  * define number filters
  * @return {[type]}     [description]
  */
-angular.module('numberFilters', []).filter("megaNumber", function(){
+ezstory.filter("megaNumber", function(){
     return function(number, fractionSize){
         if(number === null) return null;
         if(number === 0) return "0";
