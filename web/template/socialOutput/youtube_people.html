@@ -1,0 +1,45 @@
+<!-- default guid message -->
+<div class="text-center default-output-img" ng-if="!removeGuide">
+    <img ng-src="{{outputDefaultImg}}" />
+</div>
+
+<!-- user don't have social account message -->
+<div class="no-social-account" ng-if="noAccount">
+    <div ng-bind-html="noAccountMessage"></div>
+</div>
+
+<!-- main output data -->
+<div class="social-data-wrap">
+    <div class="text-center" ng-if="searchLoading">
+        <strong>{{searchLoading}}</strong>
+    </div>
+
+    <div class="text-center" ng-if="socialData.length == 0">
+        <strong>No Data Exist.</strong>
+    </div>
+
+    <div class="s-d-individual" ng-if="socialData.length > 0" ng-repeat="post in socialData">
+        <div class="media">
+            <div class="media-left">
+                <a href="https://www.youtube.com/channel/{{post.id.channelId}}" target="_blank">
+                    <img class="media-object" ng-src="{{post.snippet.thumbnails.default.url}}">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a href="https://www.youtube.com/channel/{{post.id.channelId}}" target="_blank">{{post.snippet.title}}</a>
+                    <small>@{{post.snippet.channelTitle}}</small>
+                </h4>
+
+                <div class="m-b-detail">
+                    {{post.snippet.description}}
+                </div>
+
+                <div class="text-right">
+                   <time>{{post.snippet.publishedAt | convert2Timezone | date:'yyyy-MM-dd HH:mm:ss'}}</time>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>

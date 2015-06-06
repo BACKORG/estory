@@ -1,1 +1,18 @@
-Youtube Input
+<div class="t-s-1">
+    <label>
+        <input type="radio" ng-model="ezDt.keyword_type" ng-change="updateSearchType()" value="text">
+        text
+    </label>
+
+    <label>
+        <input type="radio" ng-model="ezDt.keyword_type" ng-change="updateSearchType()" value="people">
+        people
+    </label>
+</div>
+
+<div class="t-s-search-input-wrap">
+    <input type="text" name="keyword" class="form-control" placeholder="search..." ng-model="ezDt.keyword">
+    <button type="button" class="btn btn-primary" ng-click="search();">
+        <i class="fa fa-search"></i>
+    </button>
+</div>
