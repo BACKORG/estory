@@ -11,7 +11,7 @@
 </div>
 
 <div class="t-s-search-input-wrap">
-    <input type="text" name="keyword" class="form-control" placeholder="search..." ng-model="ezDt.keyword">
+    <input type="text" name="keyword" class="form-control" placeholder="search..." ng-model="ezDt.keyword" ng-keypress="searchPress($event);">
     <button type="button" class="btn btn-primary" ng-click="search();">
         <i class="fa fa-search"></i>
     </button>

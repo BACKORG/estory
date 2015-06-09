@@ -56,6 +56,18 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     }
 
     /**
+     * click enter start search
+     * @param  {[type]} event [description]
+     * @return {[type]}       [description]
+     */
+    $scope.searchPress = function(event){
+        var keyCode = event.keyCode;
+        if(keyCode == 13){
+            $scope.search();
+        }
+    }
+
+    /**
      * search 
      * @param  {[type]} event [description]
      * @return {[type]}       [description]
