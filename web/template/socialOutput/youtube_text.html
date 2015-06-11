@@ -33,8 +33,10 @@
                 </h4>
 
                 <div class="mbd-img">
-                    <img ng-src="{{post.snippet.thumbnails.medium.url}}" class="img-responsive img-rounded">
-                    <img ng-src="/image/play_button.png" class="img-responsive play-button"/>
+                    <a  href="https://www.youtube.com/watch?v={{post.id.videoId}}" magnific-popup-video>
+                        <img ng-src="{{post.snippet.thumbnails.medium.url}}" class="img-responsive img-rounded">
+                        <img ng-src="/image/play_button.png" class="img-responsive play-button"/>
+                    </a>
                 </div>
 
                 <div class="m-b-detail">

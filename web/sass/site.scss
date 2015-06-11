@@ -140,9 +140,15 @@ body {
             margin:10px 0;
             position: relative;
             cursor: pointer;
+            outline: 0;
+
+            a{
+                outline: 0;
+            }
 
             img{
                 height: 160px;
+                outline: 0;
             }
 
             .play-button{

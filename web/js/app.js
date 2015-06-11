@@ -67,3 +67,24 @@ ezstory.filter("convert2Timezone", function(){
         return d.getTime();
     }
 });
+
+
+/**
+ * Magnific Popup Display Video
+ */
+ezstory.directive('magnificPopupVideo', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.magnificPopup({
+                disableOn: 700,
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: false,
+
+                fixedContentPos: false
+            });
+        }
+    }
+});
