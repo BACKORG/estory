@@ -1,8 +1,3 @@
-<!-- default guid message -->
-<div class="text-center default-output-img" ng-if="!removeGuide">
-    <img ng-src="{{outputDefaultImg}}" />
-</div>
-
 <!-- user don't have social account message -->
 <div class="no-social-account" ng-if="noAccount">
     <div ng-bind-html="noAccountMessage"></div>
@@ -33,9 +28,9 @@
                 </h4>
 
                 <div class="m-b-detail">
-                    <div class="mbd-img">
+                    <a class="mbd-img" href="{{post.images.standard_resolution.url}}" magnific-popup-image>
                         <img ng-src="{{post.images.low_resolution.url}}" class="img-responsive img-rounded">
-                    </div>
+                    </a>
 
                     <a href="{{post.link}}" target="_blank">
                         {{post.caption.text}}

@@ -89,6 +89,15 @@ class zxRss{
             $arr['description'] = (string)$dt->description;
         }
 
+        // rss date
+        if(isset($dt->pubDate)){
+            $arr['datetime'] = strtotime($dt->pubDate);
+        }else{
+            // parse dc:date
+            $dc = $dt->children('http://purl.org/dc/elements/1.1/');
+            $arr['datetime'] = strtotime($dc->date);
+        }
+
         return $arr;
     }
 
@@ -102,7 +111,7 @@ class zxRss{
         }
 
         $i = 0;
-        foreach ($itemsDt as $iObj) {
+        foreach ($itemsDt as $iObj) {         
             $this->_return['items'][$i] = [];
 
             // get item data

@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/libs/angular.min.js',
         'js/libs/angular-route.min.js',
+        'js/libs/angular-sanitize.min.js',
         'js/libs/bootstrap.min.js',
         'js/libs/jquery.magnific-popup.min.js',
         'js/app.js',

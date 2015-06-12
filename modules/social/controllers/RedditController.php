@@ -36,7 +36,7 @@ class RedditController extends BaseController implements SocialInterface{
 
             // get cache data
             $response = $this->cache->get( $this->cache_name );
-            if($response === false){
+            if(true){
                 // get api data
                 switch ($this->keyword_type) {
                     case 'text':
@@ -46,12 +46,17 @@ class RedditController extends BaseController implements SocialInterface{
                     case 'people':
                         $url = 'http://www.reddit.com/user/'.$this->keyword.'/.rss';    
                     break;
-                }               
+                }   
+
+                // get rss data
+                $rss = new \zhexiao\rss\zxRss($url);
+                $response = $rss->get();
+                
+                $this->cache->set( $this->cache_name, $response, CACHE_TIME);            
             }
 
-            $rss = new \zhexiao\rss\zxRss($url);
-            $rDt = $rss->get();
-            print_r($rDt);
+            $this->_output['data'] = $response['items'];                  
+            $this->outputJson( $this->_output );
         }
     }
 }

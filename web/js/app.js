@@ -11,6 +11,7 @@ angular.element(document).ready(function () {
  */
 var ezstory = angular.module('ezstory', [
     'ngRoute', 
+    'ngSanitize'
 ]);
 
 
@@ -84,6 +85,28 @@ ezstory.directive('magnificPopupVideo', function(){
                 preloader: false,
 
                 fixedContentPos: false
+            });
+        }
+    }
+});
+
+/**
+ * Magnific Popup Display Image
+ */
+ezstory.directive('magnificPopupImage', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                closeBtnInside: false,
+                fixedContentPos: true,
+                // class to remove default margin from left and right side
+                mainClass: 'mfp-no-margins', 
+                image: {
+                    verticalFit: true
+                },
             });
         }
     }
