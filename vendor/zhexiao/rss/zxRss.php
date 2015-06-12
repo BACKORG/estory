@@ -89,6 +89,17 @@ class zxRss{
             $arr['description'] = (string)$dt->description;
         }
 
+        // rss image
+        if(isset($arr['description'])){
+            preg_match('/<img[^>]+src="(.*?)"[^>]*>/i', $arr['description'], $matches);
+            if(count($matches) > 0){
+                $arr['image'] = $matches[1];
+
+                // remove the image from description            
+                $arr['description'] = preg_replace('/(<img[^>]+>)/i', '', $arr['description']);
+            }
+        }
+
         // rss date
         if(isset($dt->pubDate)){
             $arr['datetime'] = strtotime($dt->pubDate);

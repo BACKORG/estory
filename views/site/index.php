@@ -12,10 +12,10 @@ $this->title = 'EZStory';
         <div class="s-w-top">
             <div class="s-w-t-type">
                 <i class="fa fa-twitter s-w-type active" ng-click="changeType($event)" data-type="twitter"></i>
-                <i class="fa fa-instagram s-w-type" ng-click="changeType($event)" data-type="instagram"></i>
-                <i class="fa fa-youtube s-w-type" ng-click="changeType($event)" data-type="youtube"></i>
-                <i class="fa fa-reddit s-w-type" ng-click="changeType($event)" data-type="reddit"></i>
+                <i class="fa fa-youtube s-w-type" ng-click="changeType($event)" data-type="youtube"></i>         
                 <i class="fa fa-vimeo-square s-w-type" ng-click="changeType($event)" data-type="vimeo"></i>
+                <i class="fa fa-instagram s-w-type" ng-click="changeType($event)" data-type="instagram"></i>
+                <i class="fa fa-reddit s-w-type" ng-click="changeType($event)" data-type="reddit"></i>
             </div>
         </div>
 
