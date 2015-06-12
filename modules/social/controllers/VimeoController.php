@@ -54,13 +54,25 @@ class VimeoController extends BaseController implements SocialInterface{
                     break;
                     
                     case 'people':
-                                         
+                        $response = $this->_vimeo->request('/users', [
+                            'page' => $this->_page,
+                            'per_page' => $this->count,
+                            'query' => $this->keyword,
+                            'sort' => 'relevant',
+                            'direction' => 'desc'
+                        ], 'GET');           
                     break;
                 }                                
             }
 
-          
-            print_r($response);
+
+            if($response['status'] == 200){
+                // set new cache
+                $this->cache->set( $this->cache_name, $response, CACHE_TIME);
+
+                $this->_output['data'] = $response['body']['data'];                  
+                $this->outputJson( $this->_output );
+            }
         }
     }
 }

@@ -1,0 +1,38 @@
+<!-- main output data -->
+<div class="social-data-wrap">
+    <div class="text-center" ng-if="searchLoading">
+        <strong>{{searchLoading}}</strong>
+    </div>
+
+    <div class="text-center" ng-if="socialData.length == 0">
+        <strong>No Data Exist.</strong>
+    </div>
+
+    <div class="s-d-individual" ng-if="socialData.length > 0" ng-repeat="post in socialData">
+        <div class="media">
+            <div class="media-left">
+                <a href="{{post.link}}" target="_blank">
+                    <img class="media-object" ng-src="{{post.pictures.sizes[1].link}}">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a href="{{post.link}}" target="_blank">{{post.name}}</a>
+                </h4>
+
+                <small ng-if="post.websites[0]" class="margin-bottom-10">
+                    <a href="{{post.websites[0].link}}" target="_blank">{{post.websites[0].link}}</a>
+                </small>
+
+                <div ng-if="post.bio" class="m-b-detail">
+                    {{post.bio}}
+                </div>
+
+                <div class="text-right">
+                   <time>{{post.created_time | convert2Timezone | date:'yyyy-MM-dd HH:mm:ss'}}</time>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>

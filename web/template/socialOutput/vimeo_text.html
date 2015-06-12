@@ -1,0 +1,52 @@
+<!-- main output data -->
+<div class="social-data-wrap">
+    <div class="text-center" ng-if="searchLoading">
+        <strong>{{searchLoading}}</strong>
+    </div>
+
+    <div class="text-center" ng-if="socialData.length == 0">
+        <strong>No Data Exist.</strong>
+    </div>
+
+    <div class="s-d-individual" ng-if="socialData.length > 0" ng-repeat="post in socialData">
+        <div class="media">
+            <div class="media-left">
+                <a href="{{post.user.link}}" target="_blank">
+                    <img class="media-object" ng-src="{{post.user.pictures.sizes[1].link}}">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a href="{{post.link}}" target="_blank">{{post.name}}</a>
+                    <small>@{{post.user.name}}</small>
+                </h4>
+
+                <div class="mbd-img">
+                    <a  href="{{post.link}}" magnific-popup-video>
+                        <img ng-src="{{post.pictures.sizes[2].link}}" class="img-responsive img-rounded">
+                        <img ng-src="/image/play_button.png" class="img-responsive play-button"/>
+                    </a>
+                </div>
+
+                <div class="m-b-detail">
+                    {{post.description}}
+                </div>
+
+                <div class="s-n-i-stats">
+                    <span>
+                        <i class="fa fa-star"></i>{{post.metadata.connections.likes.total | megaNumber}}
+                    </span>
+
+                    <span>
+                        <i class="fa fa-comments"></i>{{post.metadata.connections.comments.total | megaNumber}}
+                    </span>
+                </div>
+
+                <div class="text-right">
+                   <time>{{post.modified_time | convert2Timezone | date:'yyyy-MM-dd HH:mm:ss'}}</time>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>
