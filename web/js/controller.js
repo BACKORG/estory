@@ -84,6 +84,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         }
 
         // post data
+        $scope.socialData = [];
         $http({
             method: 'POST',
             url: url,

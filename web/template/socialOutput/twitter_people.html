@@ -5,12 +5,8 @@
 
 <!-- main output data -->
 <div class="social-data-wrap">
-    <div class="text-center" ng-if="searchLoading">
+    <div class="text-center loading-wrap" ng-if="searchLoading">
         <strong>{{searchLoading}}</strong>
-    </div>
-    
-    <div class="text-center" ng-if="socialData.length == 0">
-        <strong>No Data Exist.</strong>
     </div>
 
     <div class="s-d-individual" ng-if="socialData.length > 0" ng-repeat="post in socialData">
