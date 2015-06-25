@@ -2,7 +2,7 @@
 
 // comment out the following two lines when deployed to production
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'dev');
+defined('YII_ENV') or define('YII_ENV', 'production');
 
 
 // define social constants
@@ -13,7 +13,7 @@ define('REDDIT_ACCOUNT', 40);
 define('VIMEO_ACCOUNT', 50);
 
 // define cache constants
-define('CACHE_TIME', 60);
+define('CACHE_TIME', 180);
 
 
 require(__DIR__ . '/../vendor/autoload.php');

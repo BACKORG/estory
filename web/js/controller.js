@@ -85,6 +85,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
 
         // post data
         $scope.socialData = [];
+        $scope.nextPage = null;
         $http({
             method: 'POST',
             url: url,
@@ -98,7 +99,16 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
                 $scope.noAccountMessage = $sce.trustAsHtml( res.message );
             }else{
                 $scope.socialData = res.data;
+                $scope.nextPage = res.next_page ? res.next_page : null;
             }
         })
+    }
+
+    /**
+     * load more data for any social type
+     * @return {[type]} [description]
+     */
+    $scope.loadMoreData = function(){
+        alert('there');
     }
 });

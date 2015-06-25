@@ -5,6 +5,9 @@ class TwitterController extends BaseController implements SocialInterface{
     // define the codebird variable
     private $_codebird;
 
+    // define the next page url
+    private $_next_page_url;
+
     /**
      * initialization controller
      * @return [type] [description]
@@ -18,6 +21,8 @@ class TwitterController extends BaseController implements SocialInterface{
         $this->_codebird = \zhexiao\twitter\Codebird::getInstance();
         // convert the return data to array
         $this->_codebird->setReturnFormat(CODEBIRD_RETURNFORMAT_ARRAY);
+
+        $this->_next_page_url = $this->request->post('next_page');
     }
 
     /**
@@ -111,16 +116,20 @@ class TwitterController extends BaseController implements SocialInterface{
                                 ));                       
                             break;
                         }
+
+                        // only save to cache when it's return data
+                        if($response['httpstatus'] == 200 ){
+                            // set new cache
+                            $this->cache->set( $this->cache_name, $response, CACHE_TIME);
+                        }             
                     }
 
                     // check return status
                     if($response['httpstatus'] == 200 ){
-                        // set new cache
-                        $this->cache->set( $this->cache_name, $response, CACHE_TIME);
-
                         switch ($this->keyword_type) {
                             case 'text':
                                 $this->_output['data'] = $response['statuses'];
+                                $this->_output['next_page'] = $response['search_metadata']['max_id_str'];
                             break;
                             
                             case 'people':
@@ -128,16 +137,19 @@ class TwitterController extends BaseController implements SocialInterface{
                                unset($this->_output['data']['httpstatus']);
                                unset($this->_output['data']['rate']);
                             break;
-                        }
-
-                        $this->outputJson( $this->_output );
-
-                        // if http status success, break loop
-                        break;
+                        }                       
                     }
 
-                    // if exist error, continue
-                    continue;
+                    // check the request reach to the limit
+                    if($response['rate']['remaining'] > 0){
+                        // if exist remaining request, break loop
+                        $this->outputJson( $this->_output );
+
+                        break;
+                    }else{
+                        // if not exist remaining request, continue change to a new account
+                        continue;
+                    }
                 }
             }else{
                 $this->_output['error'] = true;
