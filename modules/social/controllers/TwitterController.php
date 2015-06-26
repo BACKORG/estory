@@ -6,7 +6,7 @@ class TwitterController extends BaseController implements SocialInterface{
     private $_codebird;
 
     // define the next page url
-    private $_next_page_url;
+    private $_next_results;
 
     /**
      * initialization controller
@@ -22,7 +22,7 @@ class TwitterController extends BaseController implements SocialInterface{
         // convert the return data to array
         $this->_codebird->setReturnFormat(CODEBIRD_RETURNFORMAT_ARRAY);
 
-        $this->_next_page_url = $this->request->post('next_page');
+        $this->_next_results = $this->request->post('next_page');
     }
 
     /**
@@ -91,7 +91,7 @@ class TwitterController extends BaseController implements SocialInterface{
     public function actionSearch(){
         if(!empty($this->keyword)){
             // set cache name
-            $this->cache_name = 'twitter_' . $this->keyword .'_' .$this->keyword_type;
+            $this->cache_name = 'twitter_' . $this->keyword .'_' .$this->keyword_type . '_' .$this->_next_results;
             
             // check social account
             $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
@@ -105,7 +105,12 @@ class TwitterController extends BaseController implements SocialInterface{
                         // get api data
                         switch ($this->keyword_type) {
                             case 'text':
-                                $response = $this->_codebird->search_tweets('q='.$this->keyword.'&count='.$this->count, true);                  
+                                $query = 'q='.$this->keyword.'&count='.$this->count;
+                                if(!is_null($this->_next_results)){
+                                    $query = ltrim($this->_next_results, '?');
+                                }
+
+                                $response = $this->_codebird->search_tweets($query, true);                  
                             break;
                             
                             case 'people':
@@ -129,7 +134,7 @@ class TwitterController extends BaseController implements SocialInterface{
                         switch ($this->keyword_type) {
                             case 'text':
                                 $this->_output['data'] = $response['statuses'];
-                                $this->_output['next_page'] = $response['search_metadata']['max_id_str'];
+                                $this->_output['next_page'] = $response['search_metadata']['next_results'];
                             break;
                             
                             case 'people':

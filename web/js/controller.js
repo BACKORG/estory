@@ -5,6 +5,9 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     // define output default image path
     $scope.outputDefaultImg = '/image/arrow-up.png';
 
+    // define social data is empty array
+    $scope.socialData = [];
+
     // define ng-model data, "If you use ng-model, you have to have a dot in there." 
     // Without a dot, your child scope creates it's own value, overwriting the inherited value from the parent scope.
     $scope.ezDt = {
@@ -15,11 +18,21 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     }
 
     /**
+     * reset social data to empty array
+     * @return {[type]} [description]
+     */
+    $scope.resetSocialDt = function(){
+        $scope.socialData = [];
+    }
+
+    /**
      * change social type
      * @param  {[type]} event [description]
      * @return {[type]}       [description]
      */
     $scope.changeType = function(event){
+        $scope.resetSocialDt();
+
         var $obj = $(event.target),
             type = $obj.attr('data-type');
 
@@ -36,6 +49,8 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
      * @return {[type]}       [description]
      */
     $scope.updateSearchType = function(event){
+        $scope.resetSocialDt();
+        
         $scope.search();
     }
 
@@ -72,19 +87,23 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
      * @param  {[type]} event [description]
      * @return {[type]}       [description]
      */
-    $scope.search = function(){
+    $scope.search = function(nextPage){
         $scope.removeGuide = true;
         $scope.searchLoading = 'Loading...';
 
         // build url
         var url = '/social/' + $scope.currentSocialType + '/search';
+        var nextPage = nextPage ? nextPage : null;
         var data = {
             keyword : $scope.ezDt.keyword,
             keyword_type : $scope.ezDt.keyword_type
         }
 
+        if(nextPage != null){
+            data.next_page = nextPage;
+        }
+
         // post data
-        $scope.socialData = [];
         $scope.nextPage = null;
         $http({
             method: 'POST',
@@ -98,7 +117,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
                 $scope.noAccount = true;
                 $scope.noAccountMessage = $sce.trustAsHtml( res.message );
             }else{
-                $scope.socialData = res.data;
+                $scope.socialData = $scope.socialData.concat(res.data);
                 $scope.nextPage = res.next_page ? res.next_page : null;
             }
         })
@@ -108,7 +127,11 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
      * load more data for any social type
      * @return {[type]} [description]
      */
-    $scope.loadMoreData = function(){
-        alert('there');
+    $scope.loadMoreData = function(event){
+        var $obj = $(event.target);
+
+        if($scope.nextPage != null){
+            $scope.search( $scope.nextPage );
+        }
     }
 });
