@@ -69,14 +69,18 @@ class zxInstagram{
      * @param  [type] $token [description]
      * @return [type]        [description]
      */
-    public function tags_recent($q, $token){
-        $url = $this->_api_host. '/tags/'. $q. "/media/recent?access_token=".$token;
+    public function tags_recent($parameters){
+        $url = $this->_api_host. '/tags/'. $parameters['q']. "/media/recent?access_token=".$parameters['token'];
+        if(isset($parameters['MAX_TAG_ID'])){
+            $url .= '&MAX_TAG_ID='.$parameters['MAX_TAG_ID'].'&max_tag_id='.$parameters['MAX_TAG_ID'];
+        }
+
         $res = $this->curl_get($url);       
         return  json_decode($res, true);
     }
 
-    public function users_search($q, $token){
-        $url = $this->_api_host. '/users/search?q='. $q. "&access_token=".$token;
+    public function users_search($parameters){
+        $url = $this->_api_host. '/users/search?q='. $parameters['q']. "&access_token=".$parameters['token'];
         $res = $this->curl_get($url);       
         return  json_decode($res, true);
     }

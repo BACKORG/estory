@@ -8,6 +8,9 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     // define social data is empty array
     $scope.socialData = [];
 
+    // loading text 
+    $scope.loadingText = "Load More";
+
     // define ng-model data, "If you use ng-model, you have to have a dot in there." 
     // Without a dot, your child scope creates it's own value, overwriting the inherited value from the parent scope.
     $scope.ezDt = {
@@ -82,6 +85,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         }
     }
 
+
     /**
      * search 
      * @param  {[type]} event [description]
@@ -103,33 +107,41 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
             data.next_page = nextPage;
         }
 
-        // post data
-        $scope.nextPage = null;
         $http({
             method: 'POST',
             url: url,
             data: $.param(data),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(res){
+            $scope.loadingText = 'Load More';
             $scope.searchLoading = false;
 
             if(res.error){
                 $scope.noAccount = true;
                 $scope.noAccountMessage = $sce.trustAsHtml( res.message );
             }else{
-                $scope.socialData = $scope.socialData.concat(res.data);
+                if(res.data){
+                    if(nextPage){
+                        $scope.socialData = $scope.socialData.concat(res.data);
+                    }else{
+                        $scope.socialData = res.data;
+                    }
+                }
                 $scope.nextPage = res.next_page ? res.next_page : null;
             }
         })
     }
+
 
     /**
      * load more data for any social type
      * @return {[type]} [description]
      */
     $scope.loadMoreData = function(event){
-        var $obj = $(event.target);
+        var $obj = $(event.target),
+            originStr = $obj.html();
 
+        $scope.loadingText = "Loading...";
         if($scope.nextPage != null){
             $scope.search( $scope.nextPage );
         }

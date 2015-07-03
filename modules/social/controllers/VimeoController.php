@@ -4,7 +4,7 @@ namespace app\modules\social\controllers;
 class VimeoController extends BaseController implements SocialInterface{
     private $_vimeo;
 
-    private $_page = 1;
+    private $_page;
 
     /**
      * initialization controller
@@ -16,6 +16,8 @@ class VimeoController extends BaseController implements SocialInterface{
 
         $this->_vimeo = new \Vimeo\Vimeo(\Yii::$app->params['VIMEO_CLIENT_ID'], \Yii::$app->params['VIMEO_CLIENT_SECRET']);
         $this->_vimeo->setToken(\Yii::$app->params['VIMEO_ACCESS_TOKEN']);
+
+        $this->_page = $this->request->post('next_page') ? $this->request->post('next_page') : 1;
     }
 
     /**
@@ -38,7 +40,7 @@ class VimeoController extends BaseController implements SocialInterface{
     public function actionSearch(){
         if(!empty($this->keyword)){
             // set cache name
-            $this->cache_name = 'vimeo_' . $this->keyword .'_' .$this->keyword_type;
+            $this->cache_name = 'vimeo_' . $this->keyword .'_' .$this->keyword_type.'_'.$this->_page;
 
             $response = $this->cache->get( $this->cache_name );
             if($response === false){
@@ -50,7 +52,7 @@ class VimeoController extends BaseController implements SocialInterface{
                             'query' => $this->keyword,
                             'sort' => 'relevant',
                             'direction' => 'desc'
-                        ], 'GET');           
+                        ], 'GET');          
                     break;
                     
                     case 'people':
@@ -62,13 +64,19 @@ class VimeoController extends BaseController implements SocialInterface{
                             'direction' => 'desc'
                         ], 'GET');           
                     break;
-                }                                
+                }
+
+                // set new cache
+                if($response['status'] == 200){
+                    $this->cache->set( $this->cache_name, $response, CACHE_TIME); 
+                }
             }
 
 
-            if($response['status'] == 200){
-                // set new cache
-                $this->cache->set( $this->cache_name, $response, CACHE_TIME);
+            if($response['status'] == 200){    
+                if(isset($response['body']['paging']['next'])){
+                    $this->_output['next_page'] = $this->_page + 1;
+                }
 
                 $this->_output['data'] = $response['body']['data'];                  
                 $this->outputJson( $this->_output );

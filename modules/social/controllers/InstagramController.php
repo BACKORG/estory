@@ -4,6 +4,8 @@ namespace app\modules\social\controllers;
 class InstagramController extends BaseController implements SocialInterface{
     private $_instagram;
 
+    private $_next_max_id;
+
     /**
      * initialization controller
      * @return [type] [description]
@@ -13,6 +15,9 @@ class InstagramController extends BaseController implements SocialInterface{
         parent::init();
 
         $this->_instagram = new \zhexiao\instagram\zxInstagram(\Yii::$app->params['INSTAGRAM_CLIENT_ID'], \Yii::$app->params['INSTAGRAM_CLIENT_SECRET'], \Yii::$app->params['INSTAGRAM_REDIRECT_URL']);
+
+
+        $this->_next_max_id = $this->request->post('next_page') ? $this->request->post('next_page') : null; 
     }
 
     /**
@@ -59,7 +64,7 @@ class InstagramController extends BaseController implements SocialInterface{
     public function actionSearch(){
         if(!empty($this->keyword)){
             // set cache name
-            $this->cache_name = 'instagram_' . $this->keyword .'_' .$this->keyword_type;
+            $this->cache_name = 'instagram_' . $this->keyword .'_' .$this->keyword_type.'_'.$this->_next_max_id;
 
             // check social account
             $uInstagram = \app\models\EzInstagram::userInstagram($this->uid);
@@ -68,22 +73,37 @@ class InstagramController extends BaseController implements SocialInterface{
                     // get cache data
                     $response = $this->cache->get( $this->cache_name );
                     if($response === false){
+                        $parameters = [
+                            'q' => $this->keyword,
+                            'token' => $act->access_token
+                        ];
+
+                        if($this->_next_max_id){
+                            $parameters['MAX_TAG_ID'] = $this->_next_max_id;
+                        }
+
                         // get api data
                         switch ($this->keyword_type) {
                             case 'text':
-                                $response = $this->_instagram->tags_recent($this->keyword, $act->access_token);                
+                                $response = $this->_instagram->tags_recent($parameters);                
                             break;
                             
                             case 'people':
-                                $response = $this->_instagram->users_search($this->keyword, $act->access_token);                     
+                                $response = $this->_instagram->users_search($parameters);                     
                             break;
-                        }               
+                        }         
+
+                        if($response['meta']['code'] == 200 ){    
+                            // set new cache
+                            $this->cache->set( $this->cache_name, $response, CACHE_TIME);
+                        }      
                     }
 
                     // check return status
                     if($response['meta']['code'] == 200 ){    
-                        // set new cache
-                        $this->cache->set( $this->cache_name, $response, CACHE_TIME);
+                        if(isset($response['pagination']['next_max_id'])){
+                            $this->_output['next_page'] = $response['pagination']['next_max_id'];
+                        }
 
                         $this->_output['data'] = $response['data'];                  
                         $this->outputJson( $this->_output );
