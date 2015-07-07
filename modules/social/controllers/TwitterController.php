@@ -6,7 +6,7 @@ class TwitterController extends BaseController implements SocialInterface{
     private $_codebird;
 
     // define the next page url
-    private $_next_results;
+    private $_max_id_str;
 
     /**
      * initialization controller
@@ -22,7 +22,7 @@ class TwitterController extends BaseController implements SocialInterface{
         // convert the return data to array
         $this->_codebird->setReturnFormat(CODEBIRD_RETURNFORMAT_ARRAY);
 
-        $this->_next_results = $this->request->post('next_page');
+        $this->_max_id_str = $this->request->post('next_page', null);
     }
 
     /**
@@ -91,7 +91,7 @@ class TwitterController extends BaseController implements SocialInterface{
     public function actionSearch(){
         if(!empty($this->keyword)){
             // set cache name
-            $this->cache_name = 'twitter_' . $this->keyword .'_' .$this->keyword_type . '_' .$this->_next_results;
+            $this->cache_name = 'twitter_' . $this->keyword .'_' .$this->keyword_type . '_' .$this->_max_id_str;
             
             // check social account
             $uTwitter = \app\models\EzTwitter::userTwitter($this->uid);
@@ -102,23 +102,24 @@ class TwitterController extends BaseController implements SocialInterface{
                     // get cache data
                     $response = $this->cache->get( $this->cache_name );
                     if($response === false){
+                        $parameters = [
+                            'q' => $this->keyword,
+                            'count' => $this->count,
+                            'include_entities' => false
+                        ];
+
+                        if($this->_max_id_str){
+                            $parameters['max_id'] = $this->_max_id_str;
+                        }
+
                         // get api data
                         switch ($this->keyword_type) {
                             case 'text':
-                                $query = 'q='.$this->keyword.'&count='.$this->count;
-                                if(!is_null($this->_next_results)){
-                                    $query = ltrim($this->_next_results, '?');
-                                }
-
-                                $response = $this->_codebird->search_tweets($query, true);                  
+                                $response = $this->_codebird->search_tweets(http_build_query($parameters), true);                  
                             break;
                             
                             case 'people':
-                                $response = $this->_codebird->users_search(array(
-                                    'q' => $this->keyword,
-                                    'page'=> '1',
-                                    'count'=> $this->count,
-                                ));                       
+                                $response = $this->_codebird->users_search(http_build_query($parameters));                       
                             break;
                         }
 
@@ -129,12 +130,19 @@ class TwitterController extends BaseController implements SocialInterface{
                         }             
                     }
 
+
                     // check return status
                     if($response['httpstatus'] == 200 ){
                         switch ($this->keyword_type) {
                             case 'text':
+                                // get tweets max id
+                                if(isset($response['search_metadata']['next_results'])){
+                                    preg_match_all('/.*max_id=(\d*)\&.*/', $response['search_metadata']['next_results'], $matches);
+                                    $max_id = $matches[1][0];
+                                    $this->_output['next_page'] = $max_id;
+                                }
+
                                 $this->_output['data'] = $response['statuses'];
-                                $this->_output['next_page'] = $response['search_metadata']['next_results'];
                             break;
                             
                             case 'people':
@@ -142,7 +150,7 @@ class TwitterController extends BaseController implements SocialInterface{
                                unset($this->_output['data']['httpstatus']);
                                unset($this->_output['data']['rate']);
                             break;
-                        }                       
+                        }                   
                     }
 
                     // check the request reach to the limit

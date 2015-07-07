@@ -17,7 +17,7 @@ class InstagramController extends BaseController implements SocialInterface{
         $this->_instagram = new \zhexiao\instagram\zxInstagram(\Yii::$app->params['INSTAGRAM_CLIENT_ID'], \Yii::$app->params['INSTAGRAM_CLIENT_SECRET'], \Yii::$app->params['INSTAGRAM_REDIRECT_URL']);
 
 
-        $this->_next_max_id = $this->request->post('next_page') ? $this->request->post('next_page') : null; 
+        $this->_next_max_id = $this->request->post('next_page', null); 
     }
 
     /**

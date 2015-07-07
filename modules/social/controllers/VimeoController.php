@@ -17,7 +17,7 @@ class VimeoController extends BaseController implements SocialInterface{
         $this->_vimeo = new \Vimeo\Vimeo(\Yii::$app->params['VIMEO_CLIENT_ID'], \Yii::$app->params['VIMEO_CLIENT_SECRET']);
         $this->_vimeo->setToken(\Yii::$app->params['VIMEO_ACCESS_TOKEN']);
 
-        $this->_page = $this->request->post('next_page') ? $this->request->post('next_page') : 1;
+        $this->_page = $this->request->post('next_page', 1);
     }
 
     /**
@@ -44,25 +44,21 @@ class VimeoController extends BaseController implements SocialInterface{
 
             $response = $this->cache->get( $this->cache_name );
             if($response === false){
+                $parameters = [
+                    'page' => $this->_page,
+                    'per_page' => $this->count,
+                    'query' => $this->keyword,
+                    'sort' => 'relevant',
+                    'direction' => 'desc'
+                ];
+
                 switch ($this->keyword_type) {
                     case 'text':
-                        $response = $this->_vimeo->request('/videos', [
-                            'page' => $this->_page,
-                            'per_page' => $this->count,
-                            'query' => $this->keyword,
-                            'sort' => 'relevant',
-                            'direction' => 'desc'
-                        ], 'GET');          
+                        $response = $this->_vimeo->request('/videos', $parameters, 'GET');          
                     break;
                     
                     case 'people':
-                        $response = $this->_vimeo->request('/users', [
-                            'page' => $this->_page,
-                            'per_page' => $this->count,
-                            'query' => $this->keyword,
-                            'sort' => 'relevant',
-                            'direction' => 'desc'
-                        ], 'GET');           
+                        $response = $this->_vimeo->request('/users', $parameters, 'GET');           
                     break;
                 }
 
