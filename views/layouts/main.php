@@ -31,7 +31,7 @@ $this->registerJsFile('https://code.jquery.com/jquery-2.1.4.min.js', ['position'
             'brandLabel' => 'EZStory',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar-inverse navbar',
+                'class' => 'navbar-default navbar',
             ],
         ]);
         echo Nav::widget([

@@ -90,6 +90,7 @@ ezstory.directive('magnificPopupVideo', function(){
     }
 });
 
+
 /**
  * Magnific Popup Display Image
  */
@@ -108,6 +109,18 @@ ezstory.directive('magnificPopupImage', function(){
                     verticalFit: true
                 },
             });
+        }
+    }
+});
+
+/**
+ * tooltips
+ */
+ezstory.directive('tooltips', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.tooltip();
         }
     }
 });

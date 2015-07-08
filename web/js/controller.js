@@ -1,3 +1,15 @@
+ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
+    // get post header template
+    $scope.getPostHeaderTpl = function(){
+        return '/template/postHeader/index.html';
+    }
+
+    // get post body template
+    $scope.getPostBodyTpl = function(){
+        return '/template/postBody/index.html';
+    }
+});
+
 ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     // define currently social type, default is twitter
     $scope.currentSocialType = 'twitter';
