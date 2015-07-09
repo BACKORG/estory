@@ -8,6 +8,20 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     $scope.getPostBodyTpl = function(){
         return '/template/postBody/index.html';
     }
+
+    // show post body
+    $scope.showPostBody = function(event){
+        var $obj = $(event.target),
+            type = $obj.attr('data-original-title');
+
+        if($obj.hasClass('active')){
+            $obj.removeClass('active');
+            $('.p-w-pt[data-type="'+type+'"]').slideUp(800, 'easeOutBack');
+        }else{          
+            $obj.addClass('active');
+            $('.p-w-pt[data-type="'+type+'"]').slideDown(800, 'easeOutBack');
+        }
+    }
 });
 
 ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){

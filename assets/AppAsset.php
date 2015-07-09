@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         'js/libs/angular-sanitize.min.js',
         'js/libs/bootstrap.min.js',
         'js/libs/jquery.magnific-popup.min.js',
+        'js/libs/jquery.easing.js',
         'js/app.js',
         'js/controller.js'
     ];
