@@ -51,7 +51,11 @@ class SiteController extends \yii\web\Controller{
            $this->redirect('/site/login'); 
         }
         
-        return $this->render('index');
+        $wordpress = \app\models\EzWordpress::accounts();
+
+        return $this->render('index',[
+            'wordpress' => $wordpress
+        ]);
     }
 
     public function actionLogin()

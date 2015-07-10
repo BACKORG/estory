@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
 --
--- Host: localhost    Database: ezstory
+-- Host: 127.0.0.1    Database: ezstory
 -- ------------------------------------------------------
 -- Server version	5.6.21
 
@@ -111,6 +111,37 @@ LOCK TABLES `ez_user` WRITE;
 INSERT INTO `ez_user` VALUES (1,'zhexiao','31efe5c727df3e9f116cd46fbb5b2626','zhexiao@163.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `ez_user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `ez_wordpress`
+--
+
+DROP TABLE IF EXISTS `ez_wordpress`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ez_wordpress` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete` tinyint(1) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `wordpress_uid_idx` (`uid`),
+  CONSTRAINT `wordpress_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ez_wordpress`
+--
+
+LOCK TABLES `ez_wordpress` WRITE;
+/*!40000 ALTER TABLE `ez_wordpress` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ez_wordpress` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -121,4 +152,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-05 15:37:44
+-- Dump completed on 2015-07-10  2:00:42

@@ -83,8 +83,9 @@ ezstory.directive('magnificPopupVideo', function(){
                 mainClass: 'mfp-fade',
                 removalDelay: 160,
                 preloader: false,
-
-                fixedContentPos: false
+                fixedContentPos: false,
+                closeOnBgClick : false,
+                closeBtnInside: true,
             });
         }
     }
@@ -101,8 +102,31 @@ ezstory.directive('magnificPopupImage', function(){
             element.magnificPopup({
                 type: 'image',
                 closeOnContentClick: true,
-                closeBtnInside: false,
+                closeBtnInside: true,
                 fixedContentPos: true,
+                // class to remove default margin from left and right side
+                mainClass: 'mfp-no-margins', 
+                image: {
+                    verticalFit: true
+                },
+            });
+        }
+    }
+});
+
+/**
+ * Magnific Popup Ajax
+ */
+ezstory.directive('magnificPopupAjax', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.magnificPopup({
+                type: 'ajax',
+                closeOnContentClick: false,
+                closeBtnInside: true,
+                fixedContentPos: true,
+                closeOnBgClick : false,
                 // class to remove default margin from left and right side
                 mainClass: 'mfp-no-margins', 
                 image: {

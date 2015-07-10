@@ -6,7 +6,14 @@ $this->title = 'EZStory';
 <div class="content-wrap">
     <!-- post section -->
     <div id="post-wrap" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" ng-controller="postCtrl">
-        <div class="p-w-type clearfix" ng-include src="getPostHeaderTpl();"></div>
+        <!-- load post header -->
+        <div class="p-w-type clearfix">
+            <?=$this->render('postHeader',[
+                'wordpress' => $wordpress
+            ]);?>
+        </div>
+
+        <!-- load post body -->
         <div class="p-w-body clearfix" ng-include src="getPostBodyTpl();"></div>
     </div>
 
@@ -22,10 +29,12 @@ $this->title = 'EZStory';
             </div>
         </div>
 
+        <!-- load social input -->
         <div class="s-w-t-input">
             <div class="s-w-t-i-tpl clearfix" ng-include src="getInputTpl();"></div>
         </div>
 
+        <!-- load social output -->
         <div class="s-w-t-output">
             <div class="s-w-t-o-tpl clearfix" ng-include src="getOutputTpl();"></div>
         </div>

@@ -9,6 +9,13 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
         return '/template/postBody/index.html';
     }
 
+    // show linked accounts
+    $scope.showAccounts = function(event){
+        var $obj = $(event.target);
+
+        $obj.closest('.pw-span').find('.pw-account-wrap').slideToggle(800, 'easeOutBounce');
+    }
+
     // show post body
     $scope.showPostBody = function(event){
         var $obj = $(event.target),
