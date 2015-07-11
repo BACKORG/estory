@@ -18,12 +18,4 @@ class WordpressController extends BaseController implements BaseInterface{
     public function actionPost(){
 
     }
-
-    /**
-     * link a new account form
-     * @return [type] [description]
-     */
-    public function actionLinkForm(){
-        echo $this->renderPartial('link_form');
-    }
 }

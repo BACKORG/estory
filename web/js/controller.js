@@ -9,11 +9,23 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
         return '/template/postBody/index.html';
     }
 
+    $scope.loadPostHeaderModal = function(){
+        return '/template/postHeader/header_modal.html';
+    }
+
     // show linked accounts
     $scope.showAccounts = function(event){
         var $obj = $(event.target);
 
         $obj.closest('.pw-span').find('.pw-account-wrap').slideToggle(800, 'easeOutBounce');
+    }
+
+    // load link account form
+    $scope.loadLinkForm = function(event){
+        var $obj = $(event.target),
+            url = $obj.attr('data-url');
+
+        $('.load-wp-form').modal('show');
     }
 
     // show post body

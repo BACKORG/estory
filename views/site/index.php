@@ -7,14 +7,13 @@ $this->title = 'EZStory';
     <!-- post section -->
     <div id="post-wrap" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" ng-controller="postCtrl">
         <!-- load post header -->
-        <div class="p-w-type clearfix">
-            <?=$this->render('postHeader',[
-                'wordpress' => $wordpress
-            ]);?>
-        </div>
+        <div class="p-w-type clearfix" ng-include src="getPostHeaderTpl();"></div>
 
         <!-- load post body -->
         <div class="p-w-body clearfix" ng-include src="getPostBodyTpl();"></div>
+
+        <!-- load modal -->
+        <div ng-include src="loadPostHeaderModal();"></div>
     </div>
 
     <!-- social data section -->
