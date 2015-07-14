@@ -50,8 +50,9 @@ class EzWordpress extends \yii\db\ActiveRecord
     {
         return [
             [['uid', 'delete'], 'integer'],
+            [['uid', 'username', 'password', 'title', 'link'], 'required'],
             [['create_time', 'update_time'], 'safe'],
-            [['username', 'link'], 'string', 'max' => 255],
+            [['username', 'link', 'title'], 'string', 'max' => 255],
             [['password'], 'string', 'max' => 100]
         ];
     }
@@ -67,6 +68,7 @@ class EzWordpress extends \yii\db\ActiveRecord
             'username' => 'Username',
             'password' => 'Password',
             'link' => 'Link',
+            'title' => 'Blog Title',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'delete' => 'Delete',

@@ -1,4 +1,13 @@
 ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
+    // get linked accounts
+    $scope.getLinkedAccounts = function(){
+        $http.get('/site/accounts').success(function(data, status, headers, config) {
+            
+        })
+    }
+    $scope.getLinkedAccounts();
+
+
     // get post header template
     $scope.getPostHeaderTpl = function(){
         return '/template/postHeader/index.html';
@@ -22,8 +31,7 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
 
     // load link account form
     $scope.loadLinkForm = function(event){
-        var $obj = $(event.target),
-            url = $obj.attr('data-url');
+        var $obj = $(event.target);
 
         $('.load-wp-form').modal('show');
     }
@@ -40,6 +48,22 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
             $obj.addClass('active');
             $('.p-w-pt[data-type="'+type+'"]').slideDown(800, 'easeOutBack');
         }
+    }
+
+    // save wordpress account
+    $scope.saveWordpressAccount = function(event){
+        event.preventDefault();
+
+        var $obj = $(event.target),
+            formDt = $obj.closest('.modal-content').find('form').serialize();
+
+        $.ajax({
+            type : 'post',
+            data : formDt,
+            url: '/compose/wordpress/save-account',
+        }).done(function(){
+
+        })
     }
 });
 

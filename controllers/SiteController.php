@@ -46,12 +46,25 @@ class SiteController extends \yii\web\Controller{
         ];
     }
 
+    /**
+     * home page
+     * @return [type] [description]
+     */
     public function actionIndex(){
         if(\Yii::$app->user->isGuest){
            $this->redirect('/site/login'); 
         }
         
         return $this->render('index');
+    }
+
+    /**
+     * get linked accounts
+     * @return [type] [description]
+     */
+    public function actionAccounts(){
+        $wp = \app\models\EzWordpress::accounts();
+        print_r($wp);
     }
 
     public function actionLogin()
