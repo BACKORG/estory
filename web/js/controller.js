@@ -30,8 +30,10 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     }
 
     // load link account form
-    $scope.loadLinkForm = function(event){
+    $scope.loadWpForm = function(event){
         var $obj = $(event.target);
+
+        $scope.wpForm = {}
 
         $('.load-wp-form').modal('show');
     }
@@ -52,18 +54,25 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
 
     // save wordpress account
     $scope.saveWordpressAccount = function(event){
-        event.preventDefault();
+        console.log($scope.wpForm);
 
-        var $obj = $(event.target),
-            formDt = $obj.closest('.modal-content').find('form').serialize();
+        // $.ajax({
+        //     type : 'post',
+        //     data : formDt,
+        //     url: '/compose/wordpress/save-account',
+        // }).done(function(){
 
-        $.ajax({
-            type : 'post',
-            data : formDt,
-            url: '/compose/wordpress/save-account',
-        }).done(function(){
+        // })
+    }
 
-        })
+
+    // display error
+    $scope.displayError = function(className, message){
+        $('.'+className).html('<div class="alert alert-danger alert-dismissible" role="alert"> \
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> \
+                                    <span aria-hidden="true">&times;</span></button> \
+                                    '+message+' \
+                                </div>');
     }
 });
 
