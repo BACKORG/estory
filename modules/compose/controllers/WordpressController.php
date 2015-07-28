@@ -2,6 +2,8 @@
 namespace app\modules\compose\controllers;
 
 class WordpressController extends BaseController implements BaseInterface{
+    private $_wp_xmlrpc;
+    
     /**
      * initialization controller
      * @return [type] [description]
@@ -9,6 +11,8 @@ class WordpressController extends BaseController implements BaseInterface{
     public function init(){
         // overload parent controller
         parent::init();
+
+        $this->_wp_xmlrpc = new \zhexiao\wordpress\zxWordpress('http://zocle.itmwpb.com/xmlrpc.php', 'zocle', 'intertech01');
     }
 
     /**
@@ -32,6 +36,8 @@ class WordpressController extends BaseController implements BaseInterface{
             'title' => $this->request->post('title')
         ];
 
+        $this->validateWpAccount($parameters);
+
         $model = new \app\models\EzWordpress;
         $model->setAttributes($parameters);
         if( $model->validate() && $model->save($parameters) ){
@@ -39,5 +45,18 @@ class WordpressController extends BaseController implements BaseInterface{
         }else{
             \zhexiao\helper\zxHelper::outputJson($model->getErrors());
         }
+    }
+
+    /**
+     * validate this wordpress account
+     * @param  [type] $parameters [description]
+     * @return [type]             [description]
+     */
+    private function validateWpAccount($parameters){
+        $res = $this->_wp_xmlrpc->create_post([
+            'title' => 'test 123',
+            'description' => 'desc 123'
+        ]);
+        print_r($res);
     }
 }

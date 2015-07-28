@@ -13,33 +13,47 @@
 			</div>
 
 			<div class="modal-body">
-				<div class="lwf-error"></div>
-			    <form class="form-horizontal" autocomplete="off">
+			    <form class="form-horizontal" autocomplete="off" name="wpLinkForm">
 			        <div class="form-group">
 			            <label for="title" class="col-sm-2 control-label">Blog Title</label>
 			            <div class="col-sm-10">
-			                <input type="text" ng-model="wpForm.title" class="form-control" placeholder="blog title">
+			                <input type="text" ng-model="wpForm.title" name="title" class="form-control" placeholder="blog title" required>
+			                <small class="label label-danger" ng-show="wpLinkForm.title.$error.required">
+			                	Blog ttitle is required.
+			                </small>
 			            </div>
 			        </div>
 
 			        <div class="form-group">
 			            <label for="link" class="col-sm-2 control-label">Blog Link</label>
 			            <div class="col-sm-10">
-			                <input type="text" ng-model="wpForm.link" class="form-control" placeholder="blog link">
+			                <input type="url" ng-model="wpForm.link" name="link" class="form-control" placeholder="blog link" required>
+			                <small class="label label-danger" ng-show="wpLinkForm.link.$error.required">
+			                	Wordpress Link is required.
+			                </small>
+			                <small class="label label-danger" ng-show="wpLinkForm.link.$error.url">
+			                	Please Enter a valid Wordpress Link.
+			                </small>
 			            </div>
 			        </div>
 
 			        <div class="form-group">
 			            <label for="username" class="col-sm-2 control-label">Username</label>
 			            <div class="col-sm-10">
-			                <input type="text" ng-model="wpForm.username" class="form-control" placeholder="username">
+			                <input type="text" ng-model="wpForm.username" name="username" class="form-control" placeholder="username" required>
+			                <small class="label label-danger" ng-show="wpLinkForm.username.$error.required">
+			                	Wordpress username is required.
+			                </small>
 			            </div>
 			        </div>
 
 			        <div class="form-group">
 			            <label for="password" class="col-sm-2 control-label">Password</label>
 			            <div class="col-sm-10">
-			                <input type="password" ng-model="wpForm.password" class="form-control" placeholder="password">
+			                <input type="password" ng-model="wpForm.password" name="password" class="form-control" placeholder="password" required>
+			                <small class="label label-danger" ng-show="wpLinkForm.password.$error.required">
+			                	Wordpress password is required.
+			                </small>
 			            </div>
 			        </div>
 			    </form>
@@ -47,7 +61,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" ng-click="saveWordpressAccount($event)">Save changes</button>
+				<button type="button" class="btn btn-primary" ng-show="wpLinkForm.$valid" ng-click="saveWordpressAccount($event)">Submit</button>
 			</div>
 		</div>
 	</div>

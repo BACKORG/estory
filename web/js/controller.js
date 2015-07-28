@@ -54,15 +54,13 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
 
     // save wordpress account
     $scope.saveWordpressAccount = function(event){
-        console.log($scope.wpForm);
+        $.ajax({
+            type : 'post',
+            data : $scope.wpForm,
+            url: '/compose/wordpress/save-account',
+        }).done(function(){
 
-        // $.ajax({
-        //     type : 'post',
-        //     data : formDt,
-        //     url: '/compose/wordpress/save-account',
-        // }).done(function(){
-
-        // })
+        })
     }
 
 
