@@ -20,6 +20,9 @@ class zxWordpress{
     // call method name
     private $methodName;
 
+    // response data
+    private $resDt = [];
+
     /**
      * construct
      * @param [type] $xmlrpcurl [description]
@@ -37,6 +40,27 @@ class zxWordpress{
             $this->password
         ];
     } 
+
+    public function getUser(){
+        $this->methodName = 'metaWeblog.getUsersBlogs';
+
+        $xml = $this->_postData();
+
+        // load xml string
+        $xmlObj = simplexml_load_string($xml);
+
+        // parse string
+        if(!isset($xmlObj->params->param->value->array->data->value->struct->member)){
+           throw new \Exception("No Data Response", 1);
+        }else{
+            $member = $xmlObj->params->param->value->array->data->value->struct->member;
+            foreach ($member as $val) {
+                $this->resDt[(string)$val->name] = (string)$val->value->string;
+            }
+        }
+
+        return $this->resDt;
+    }
 
 
     /**
@@ -69,10 +93,19 @@ class zxWordpress{
             $this->parameters['categories'] = $parameters['category'];
         }
 
-        // generate the xmlrpc xml data
-        $data = $this->generateXmlrpc();  
-        
-        return $this->sendPost($data);
+        $xml = $this->_postData();   
+
+        // load xml string
+        $xmlObj = simplexml_load_string($xml);
+
+        // parse string
+        if(!isset($xmlObj->params->param->value)){
+           throw new \Exception("No Data Response", 1);
+        }else{
+            $this->resDt['id'] = (string)$xmlObj->params->param->value->string;
+        }
+
+        return $this->resDt;
     }
 
     /**
@@ -102,22 +135,24 @@ class zxWordpress{
         }
 
         // add post content
-        $postDt = $params->addChild('param');
-        $pvalue = $postDt->addChild('value');
-        $pstruct = $pvalue->addChild('struct');
-        foreach ($this->parameters as $key => $val) {
-            $member = $pstruct->addChild('member');
-            $member->addChild('name', $key);
-            $mv = $member->addChild('value');
+        if(count($this->parameters) > 0){
+            $postDt = $params->addChild('param');
+            $pvalue = $postDt->addChild('value');
+            $pstruct = $pvalue->addChild('struct');
+            foreach ($this->parameters as $key => $val) {
+                $member = $pstruct->addChild('member');
+                $member->addChild('name', $key);
+                $mv = $member->addChild('value');
 
-            if(gettype($val) == 'integer'){
-                $type = 'int';
-            }else{
-                $type = gettype($val);
+                if(gettype($val) == 'integer'){
+                    $type = 'int';
+                }else{
+                    $type = gettype($val);
+                }
+                $mv->addChild($type, $val);
             }
-            $mv->addChild($type, $val);
         }
-
+       
         // the last params
         $lt = $params->addChild('param');
         $lv = $lt->addChild('value');
@@ -130,6 +165,22 @@ class zxWordpress{
 
         $xmlDt = str_replace($searchDt, '', $xmlDt);
         return $xmlDt;
+    }
+
+    /**
+     * post data 
+     * @return [type] [description]
+     */
+    private function _postData(){
+        $resDt = [];
+
+        // generate the xmlrpc xml data
+        $data = $this->generateXmlrpc();  
+        
+        // send request
+        $res = $this->sendPost($data);
+
+        return $res;
     }
 
 

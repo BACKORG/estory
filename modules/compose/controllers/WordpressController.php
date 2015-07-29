@@ -53,11 +53,19 @@ class WordpressController extends BaseController implements BaseInterface{
      * @return [type]             [description]
      */
     private function validateWpAccount($parameters){
-        $res = $this->_wp_xmlrpc->newPost([
-            'title' => 'new post 5353535',
-            'description' => 'desc new post'
-        ]);
-        print_r($res);
-        exit();
+        
+        try {
+            // $res = $this->_wp_xmlrpc->getUser();   
+
+            $res = $this->_wp_xmlrpc->newPost([
+                'title' => '1240',
+                'description' => 'desc new post'
+            ]);
+
+            print_r($res);
+            exit();
+        } catch (Exception $e) {
+            print($e);
+        }
     }
 }
