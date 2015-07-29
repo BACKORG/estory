@@ -58,7 +58,7 @@ class WordpressController extends BaseController implements BaseInterface{
             // $res = $this->_wp_xmlrpc->getUser();   
 
             $res = $this->_wp_xmlrpc->newPost([
-                'title' => '1240',
+                'title' => '1056',
                 'description' => 'desc new post'
             ]);
 

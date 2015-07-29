@@ -153,11 +153,12 @@ class zxWordpress{
             }
         }
        
-        // the last params
+        // publish the post, set to true
         $lt = $params->addChild('param');
         $lv = $lt->addChild('value');
         $lv->addChild(gettype(true), (int)true);
 
+        // save as xml
         $xmlDt = $xml->asXML();
 
         // remove <xml> and </xml> tags
