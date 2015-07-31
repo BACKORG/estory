@@ -61,7 +61,12 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" ng-disabled="wpLinkForm.$invalid" ng-click="saveWordpressAccount($event)">Submit</button>
+				<button type="button" class="btn btn-primary" ng-disabled="wpLinkForm.$invalid" ng-click="saveWordpressAccount(wpForm)">
+					Submit
+					<span ng-show="loading_wpform" class="animate-if">
+						<i class="fa fa-spinner fa-spin"></i>
+					</span>
+				</button>
 			</div>
 		</div>
 	</div>

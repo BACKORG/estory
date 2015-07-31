@@ -50,9 +50,7 @@ class zxWordpress{
         $xmlObj = simplexml_load_string($xml);
 
         // parse string
-        if(!isset($xmlObj->params->param->value->array->data->value->struct->member)){
-           throw new \Exception("No Data Response", 1);
-        }else{
+        if(isset($xmlObj->params->param->value->array->data->value->struct->member)){
             $member = $xmlObj->params->param->value->array->data->value->struct->member;
             foreach ($member as $val) {
                 $this->resDt[(string)$val->name] = (string)$val->value->string;

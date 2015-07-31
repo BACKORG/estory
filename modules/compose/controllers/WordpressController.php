@@ -12,7 +12,7 @@ class WordpressController extends BaseController implements BaseInterface{
         // overload parent controller
         parent::init();
 
-        $this->_wp_xmlrpc = new \zhexiao\wordpress\zxWordpress('http://zocle.itmwpb.com/xmlrpc.php', 'zocle', 'intertech01');
+        // $this->_wp_xmlrpc = new \zhexiao\wordpress\zxWordpress('http://zocle.itmwpb.com/xmlrpc.php', 'zocle1', 'intertech01');
     }
 
     /**
@@ -36,15 +36,23 @@ class WordpressController extends BaseController implements BaseInterface{
             'title' => $this->request->post('title')
         ];
 
-        $this->validateWpAccount($parameters);
+        $this->_wp_xmlrpc = new \zhexiao\wordpress\zxWordpress($parameters['link'], $parameters['username'], $this->request->post('password'));
+        $valid = $this->validateWpAccount();
 
-        $model = new \app\models\EzWordpress;
-        $model->setAttributes($parameters);
-        if( $model->validate() && $model->save($parameters) ){
-            \zhexiao\helper\zxHelper::outputJson( $model );
+        if($valid){
+            $model = new \app\models\EzWordpress;
+            $model->setAttributes($parameters);
+            if( $model->validate() && $model->save($parameters) ){
+                $this->_output['error'] = false;
+                $this->_output['data'] = $model;
+            }else{
+                $this->_output['message'] = $model->getErrors();
+            }
         }else{
-            \zhexiao\helper\zxHelper::outputJson($model->getErrors());
-        }
+            $this->_output['message'] = 'Sorry, you account is invalid, please try again!';
+        }       
+
+        \zhexiao\helper\zxHelper::outputJson( $this->_output );
     }
 
     /**
@@ -52,20 +60,12 @@ class WordpressController extends BaseController implements BaseInterface{
      * @param  [type] $parameters [description]
      * @return [type]             [description]
      */
-    private function validateWpAccount($parameters){
-        
-        try {
-            // $res = $this->_wp_xmlrpc->getUser();   
-
-            $res = $this->_wp_xmlrpc->newPost([
-                'title' => '1056',
-                'description' => 'desc new post'
-            ]);
-
-            print_r($res);
-            exit();
-        } catch (Exception $e) {
-            print($e);
+    private function validateWpAccount(){
+        $res = $this->_wp_xmlrpc->getUser();   
+        if(isset($res['blogName'])){
+            return true;
+        }else{
+            return false;
         }
     }
 }

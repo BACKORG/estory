@@ -32,9 +32,6 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     // load link account form
     $scope.loadWpForm = function(event){
         var $obj = $(event.target);
-
-        $scope.wpForm = {}
-
         $('.load-wp-form').modal('show');
     }
 
@@ -53,13 +50,17 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     }
 
     // save wordpress account
-    $scope.saveWordpressAccount = function(event){
+    $scope.saveWordpressAccount = function(wpForm){
+        $scope.loading_wpform = true;
         $.ajax({
             type : 'post',
-            data : $scope.wpForm,
+            data : wpForm,
             url: '/compose/wordpress/save-account',
-        }).done(function(){
-
+            dataType : 'json'
+        }).done(function(res){
+            $scope.$apply(function(){
+               $scope.loading_wpform = false;
+            });         
         })
     }
 
