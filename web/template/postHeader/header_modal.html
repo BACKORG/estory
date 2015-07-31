@@ -27,7 +27,7 @@
 			        <div class="form-group">
 			            <label for="link" class="col-sm-2 control-label">Blog Link</label>
 			            <div class="col-sm-10">
-			                <input type="url" ng-model="wpForm.link" name="link" class="form-control" placeholder="blog link" required>
+			                <input type="url" ng-model="wpForm.link" name="link" class="form-control" placeholder="blog link" required validate-url>
 			                <small class="label label-danger" ng-show="wpLinkForm.link.$error.required">
 			                	Wordpress Link is required.
 			                </small>

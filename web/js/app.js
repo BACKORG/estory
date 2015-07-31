@@ -148,3 +148,24 @@ ezstory.directive('tooltips', function(){
         }
     }
 });
+
+/**
+ * rewrite validate url format
+ */
+ezstory.directive('validateUrl', function(){
+    var pattern = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/i;
+
+    return {
+        require: 'ngModel',
+        restrict: '',
+        link: function(scope, elm, attrs, ctrl) {
+            // only apply the validator if ngModel is present and Angular has added the url validator
+            if (ctrl && ctrl.$validators.url) {
+                // this will overwrite the default Angular url validator
+                ctrl.$validators.url = function(modelValue) {
+                    return ctrl.$isEmpty(modelValue) || pattern.test(modelValue);
+                };
+            }
+        }
+    };
+})
