@@ -1,5 +1,5 @@
 <!-- link wordpress account form modal -->
-<div class="modal fade load-wp-form">
+<div class="modal fade load-wp-form" ng-controller="wordpressFormCtrl">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -13,6 +13,10 @@
 			</div>
 
 			<div class="modal-body">
+				<div ng-class="wpform_error ? 'alert alert-danger': 'alert alert-success'" role="alert" ng-show="wpform_alert">
+					{{wpform_message}}
+				</div>
+	
 			    <form class="form-horizontal" autocomplete="off" name="wpLinkForm">
 			        <div class="form-group">
 			            <label for="title" class="col-sm-2 control-label">Blog Title</label>
@@ -63,7 +67,7 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary" ng-disabled="wpLinkForm.$invalid" ng-click="saveWordpressAccount(wpForm)">
 					Submit
-					<span ng-show="loading_wpform" class="animate-if">
+					<span ng-show="wpform_loading" class="animate-if">
 						<i class="fa fa-spinner fa-spin"></i>
 					</span>
 				</button>

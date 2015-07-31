@@ -7,7 +7,7 @@ use yii\web\Controller;
 class BaseController extends Controller
 {
     // define the output data
-    public $_output = ['error' => false];
+    public $_output = ['error' => true];
 
     // define session component
     public $session;

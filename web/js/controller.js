@@ -1,3 +1,11 @@
+/**
+ * post header controller
+ * @param  {[type]} $scope   [description]
+ * @param  {[type]} $http    [description]
+ * @param  {[type]} $timeout [description]
+ * @param  {[type]} $sce){                      $scope.getLinkedAccounts [description]
+ * @return {[type]}          [description]
+ */
 ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     // get linked accounts
     $scope.getLinkedAccounts = function(){
@@ -48,33 +56,17 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
             $('.p-w-pt[data-type="'+type+'"]').slideDown(800, 'easeOutBack');
         }
     }
-
-    // save wordpress account
-    $scope.saveWordpressAccount = function(wpForm){
-        $scope.loading_wpform = true;
-        $.ajax({
-            type : 'post',
-            data : wpForm,
-            url: '/compose/wordpress/save-account',
-            dataType : 'json'
-        }).done(function(res){
-            $scope.$apply(function(){
-               $scope.loading_wpform = false;
-            });         
-        })
-    }
-
-
-    // display error
-    $scope.displayError = function(className, message){
-        $('.'+className).html('<div class="alert alert-danger alert-dismissible" role="alert"> \
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> \
-                                    <span aria-hidden="true">&times;</span></button> \
-                                    '+message+' \
-                                </div>');
-    }
 });
 
+
+/**
+ * social content controller
+ * @param  {[type]} $scope   [description]
+ * @param  {[type]} $http    [description]
+ * @param  {[type]} $timeout [description]
+ * @param  {[type]} $sce     [description]
+ * @return {[type]}          [description]
+ */
 ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     // define currently social type, default is twitter
     $scope.currentSocialType = 'twitter';
@@ -224,3 +216,37 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
         }
     }
 });
+
+/**
+ * link wordpress form controller
+ * @param  {[type]} $scope   [description]
+ * @param  {[type]} $http    [description]
+ * @param  {[type]} $timeout [description]
+ * @param  {[type]} $sce){                      $scope.saveWordpressAccount [description]
+ * @return {[type]}          [description]
+ */
+ezstory.controller('wordpressFormCtrl', function($scope, $http, $timeout, $sce){
+    // save wordpress account
+    $scope.saveWordpressAccount = function(wpForm){
+        $scope.wpform_loading = true;
+
+        $http({
+            method: 'POST',
+            url: '/compose/wordpress/save-account',
+            data: $.param(wpForm),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(res){
+            $scope.wpform_loading = false;
+            $scope.wpform_error = res.error;
+            $scope.wpform_alert = true;
+
+            // set error or success message
+            if($scope.wpform_error){
+                $scope.wpform_message = res.message;
+            }else{
+                $scope.wpform_message = "Well done! You successfully link your wordpress account.";
+                $scope.wpForm = null;
+            }
+        })
+    }
+})
