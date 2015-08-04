@@ -3,6 +3,16 @@
     <i class="fa fa-wordpress" tooltips data-original-title="wordpress" ng-click="showAccounts($event);"></i>
 
     <div class="pw-account-wrap">
+        <div ng-repeat="wp in wordpressAccounts" class="repeat-ele">
+            <h4 ng-click="showPostContainer($event);" class="blog-post" data-type="wordpress" data-id="{{wp.id}}" data-title="{{wp.title}}">
+                <i class="fa fa-check-circle" ng-show="selectedAccounts.selected_wordpress_{{wp.id}}"></i>
+                {{wp.title}}
+                <small>
+                    <a href="{{wp.link}}" target="_blank"><em>{{wp.link}}</em></a>
+                </small>
+            </h4>    
+        </div>
+
         <div class="pwawp-d">
             <button type="button" class="btn btn-primary" ng-click="loadWpForm($event);">Link Account</button>
         </div>
@@ -10,9 +20,9 @@
 </span>
 
 <span class="pw-span">
-    <i class="fa fa-twitter-square" tooltips data-original-title="twitter" ng-click="showPostBody($event);"></i>
+    <i class="fa fa-twitter-square" tooltips data-original-title="twitter" ng-click="showPostContainer($event);"></i>
 </span>
 
 <span class="pw-span">
-    <i class="fa fa-facebook-official" tooltips data-original-title="facebook" ng-click="showPostBody($event);"></i>
+    <i class="fa fa-facebook-official" tooltips data-original-title="facebook" ng-click="showPostContainer($event);"></i>
 </span>

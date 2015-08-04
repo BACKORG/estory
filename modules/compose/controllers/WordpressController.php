@@ -36,7 +36,12 @@ class WordpressController extends BaseController implements BaseInterface{
             'title' => $this->request->post('title')
         ];
 
-        $this->_wp_xmlrpc = new \zhexiao\wordpress\zxWordpress($parameters['link'], $parameters['username'], $this->request->post('password'));
+        // add xmlrpc to the link
+        $link = rtrim($parameters['link'], '/') . '/xmlrpc.php';
+
+        // init wp
+        $this->_wp_xmlrpc = new \zhexiao\wordpress\zxWordpress($link, $parameters['username'], $this->request->post('password'));
+        // valid wordpress account
         $valid = $this->validateWpAccount();
 
         if($valid){

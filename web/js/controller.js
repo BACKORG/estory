@@ -1,3 +1,6 @@
+
+ezstory
+
 /**
  * post header controller
  * @param  {[type]} $scope   [description]
@@ -6,11 +9,11 @@
  * @param  {[type]} $sce){                      $scope.getLinkedAccounts [description]
  * @return {[type]}          [description]
  */
-ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
+.controller('postCtrl', function($scope, $http, $timeout, $sce, $parse){
     // get linked accounts
     $scope.getLinkedAccounts = function(){
         $http.get('/site/accounts').success(function(data, status, headers, config) {
-            
+            $scope.wordpressAccounts = data.wordpress;
         })
     }
     $scope.getLinkedAccounts();
@@ -34,7 +37,7 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     $scope.showAccounts = function(event){
         var $obj = $(event.target);
 
-        $obj.closest('.pw-span').find('.pw-account-wrap').slideToggle(800, 'easeOutBounce');
+        $obj.closest('.pw-span').find('.pw-account-wrap').slideToggle(300);
     }
 
     // load link account form
@@ -44,19 +47,31 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
     }
 
     // show post body
-    $scope.showPostBody = function(event){
+    $scope['selectedAccounts'] = [];
+    $scope.showPostContainer = function(event){
         var $obj = $(event.target),
-            type = $obj.attr('data-original-title');
+            title = $obj.attr('data-title'),
+            id = $obj.attr('data-id'),
+            type = $obj.attr('data-type'),
+            selectedAccount = 'selected_'+type+'_'+id;
+        
 
-        if($obj.hasClass('active')){
-            $obj.removeClass('active');
-            $('.p-w-pt[data-type="'+type+'"]').slideUp(800, 'easeOutBack');
-        }else{          
-            $obj.addClass('active');
-            $('.p-w-pt[data-type="'+type+'"]').slideDown(800, 'easeOutBack');
+        // if exist selected account before and click again, then cancel it
+        if( $scope['selectedAccounts'][ selectedAccount ] ){
+            $scope['selectedAccounts'][ selectedAccount ] = false;
+
+            $scope.blogTitle = null;
+            $scope.showBlogPostContainer = false;
+        }else{
+            // new selected account, show all corresponding data
+            $scope['selectedAccounts'] = [];
+            $scope['selectedAccounts'][ selectedAccount ] = true;
+
+            $scope.blogTitle = title;
+            $scope.showBlogPostContainer = true;
         }
     }
-});
+})
 
 
 /**
@@ -67,7 +82,7 @@ ezstory.controller('postCtrl', function($scope, $http, $timeout, $sce){
  * @param  {[type]} $sce     [description]
  * @return {[type]}          [description]
  */
-ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
+.controller('socialCtrl', function($scope, $http, $timeout, $sce){
     // define currently social type, default is twitter
     $scope.currentSocialType = 'twitter';
 
@@ -215,7 +230,8 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
             $scope.search( $scope.nextPage );
         }
     }
-});
+})
+
 
 /**
  * link wordpress form controller
@@ -225,7 +241,7 @@ ezstory.controller('socialCtrl', function($scope, $http, $timeout, $sce){
  * @param  {[type]} $sce){                      $scope.saveWordpressAccount [description]
  * @return {[type]}          [description]
  */
-ezstory.controller('wordpressFormCtrl', function($scope, $http, $timeout, $sce){
+.controller('wordpressFormCtrl', function($scope, $http, $timeout, $sce){
     // save wordpress account
     $scope.saveWordpressAccount = function(wpForm){
         $scope.wpform_loading = true;
@@ -244,6 +260,9 @@ ezstory.controller('wordpressFormCtrl', function($scope, $http, $timeout, $sce){
             if($scope.wpform_error){
                 $scope.wpform_message = res.message;
             }else{
+                // append the new data to wordpress accounts
+                $scope.wordpressAccounts.push(res.data);
+                // message
                 $scope.wpform_message = "Well done! You successfully link your wordpress account.";
                 $scope.wpForm = null;
             }

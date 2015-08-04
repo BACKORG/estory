@@ -52,15 +52,42 @@ body {
 
         .pw-span{
             display: inline-block;
-            text-align: center;
+            text-align: left;
             margin-right: 15px;
 
             .pw-account-wrap{
+                padding:20px;
                 position: absolute;
                 border:1px solid #ccc;
                 background-color: #fff;
                 top: 50px;
                 display: none;
+                z-index: 99;
+                @include css3(user-select, none);
+
+                h4{
+                    padding: 10px 0;
+                    cursor: pointer;
+                    margin: 5px 0;
+                    border-bottom: 1px solid #ccc;
+
+                    small{
+                        color: #999;
+
+                        a{
+                            color: #999;
+                            text-decoration: none;
+                        }
+                    }
+
+                    .fa{
+                       font-size: 18px;
+                       color: #3FC380;
+                       margin-right: 5px;
+                    }
+                }
+
+            
             }
 
             
@@ -78,13 +105,18 @@ body {
     }    
 
     .p-w-pt{
-        display: none;
         margin: 20px 0;
 
         .p-w-pt-type{
             i{
                 font-size: 30px;
                 color: #3A539B;
+            }
+
+            .selectedTitle{
+                display: inline-block;
+                font-size: 20px;
+                margin-left: 10px;
             }
         }
 

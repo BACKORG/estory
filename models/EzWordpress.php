@@ -90,10 +90,13 @@ class EzWordpress extends \yii\db\ActiveRecord
      */
     public static function accounts($uid = null){
         $uid = $uid ? $uid : \Yii::$app->user->identity->id;
-        $data = self::findAll([
-            'uid' => $uid
-        ]);
 
-        return $data;
+        $rows = (new \yii\db\Query())
+            ->select(['id', 'uid', 'title', 'link'])
+            ->from(self::tableName())
+            ->where(['uid' => $uid])
+            ->all();
+
+        return $rows;
     }
 }

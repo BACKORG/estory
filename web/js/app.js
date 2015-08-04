@@ -15,11 +15,14 @@ var ezstory = angular.module('ezstory', [
 ]);
 
 
+
+ezstory
+
 /**
  * number filters
  * @return {[type]}     [description]
  */
-ezstory.filter("megaNumber", function(){
+.filter("megaNumber", function(){
     return function(number, fractionSize){
         if(number === null) return null;
         if(number === 0) return "0";
@@ -56,24 +59,24 @@ ezstory.filter("megaNumber", function(){
         
         return (isNegative ? '-' : '') + abs + key;
     }
-});
+})
 
 /**
  * convert datetime to timezone
  * @return {[type]}     [description]
  */
-ezstory.filter("convert2Timezone", function(){
+.filter("convert2Timezone", function(){
     return function(number){
         var d = new Date(number);
         return d.getTime();
     }
-});
+})
 
 
 /**
  * Magnific Popup Display Video
  */
-ezstory.directive('magnificPopupVideo', function(){
+.directive('magnificPopupVideo', function(){
     return {
         restrict: 'A',
         link : function(scope, element){
@@ -89,13 +92,13 @@ ezstory.directive('magnificPopupVideo', function(){
             });
         }
     }
-});
+})
 
 
 /**
  * Magnific Popup Display Image
  */
-ezstory.directive('magnificPopupImage', function(){
+.directive('magnificPopupImage', function(){
     return {
         restrict: 'A',
         link : function(scope, element){
@@ -112,12 +115,12 @@ ezstory.directive('magnificPopupImage', function(){
             });
         }
     }
-});
+})
 
 /**
  * Magnific Popup Ajax
  */
-ezstory.directive('magnificPopupAjax', function(){
+.directive('magnificPopupAjax', function(){
     return {
         restrict: 'A',
         link : function(scope, element){
@@ -135,24 +138,24 @@ ezstory.directive('magnificPopupAjax', function(){
             });
         }
     }
-});
+})
 
 /**
  * tooltips
  */
-ezstory.directive('tooltips', function(){
+.directive('tooltips', function(){
     return {
         restrict: 'A',
         link : function(scope, element){
             element.tooltip();
         }
     }
-});
+})
 
 /**
  * rewrite validate url format
  */
-ezstory.directive('validateUrl', function(){
+.directive('validateUrl', function(){
     var pattern = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/i;
 
     return {
@@ -168,4 +171,19 @@ ezstory.directive('validateUrl', function(){
             }
         }
     };
+})
+
+
+/**
+ * stop propogation and prevent default
+ */
+.directive('stopEvent', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.on('click', function(e){
+                e.preventDefault();
+            });
+        }
+    }
 })

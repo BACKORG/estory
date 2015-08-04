@@ -1,19 +1,8 @@
 <!-- wordpress -->
-<div class="panel panel-default p-w-pt" data-type="wordpress">
+<div class="panel panel-default p-w-pt" data-type="wordpress" ng-show="showBlogPostContainer">
     <div class="panel-heading p-w-pt-type">
         <i class="fa fa-wordpress"></i>
-    </div>
-
-    <div class="panel-body">
-        <input type="text" class="form-control p-w-pt-form" placeholder="Type your post headline...">
-        <textarea class="form-control p-w-pt-form" rows="10" placeholder="Type your post body..."></textarea>
-    </div>
-</div>
-
-<!-- drupal -->
-<div class="panel panel-default p-w-pt" data-type="drupal">
-    <div class="panel-heading p-w-pt-type">
-        <i class="fa fa-drupal"></i>
+        <span class="selectedTitle">{{blogTitle}}</span>
     </div>
 
     <div class="panel-body">
@@ -23,7 +12,7 @@
 </div>
 
 <!-- facebook -->
-<div class="panel panel-default p-w-pt" data-type="facebook">
+<div class="panel panel-default p-w-pt" data-type="facebook" ng-show="showFacebookPostContainer">
     <div class="panel-heading p-w-pt-type">
         <i class="fa fa-facebook-official"></i>
     </div>
@@ -34,7 +23,7 @@
 </div>
 
 <!-- twitter -->
-<div class="panel panel-default p-w-pt" data-type="twitter">
+<div class="panel panel-default p-w-pt" data-type="twitter" ng-show="showTwitterPostContainer">
     <div class="panel-heading p-w-pt-type">
         <i class="fa fa-twitter-square"></i>
     </div>

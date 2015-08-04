@@ -63,8 +63,13 @@ class SiteController extends \yii\web\Controller{
      * @return [type] [description]
      */
     public function actionAccounts(){
+        $output = [];
+
+        // get wp accounts
         $wp = \app\models\EzWordpress::accounts();
-        print_r($wp);
+        $output['wordpress'] = $wp;
+
+        \zhexiao\helper\zxHelper::outputJson( $output );
     }
 
     public function actionLogin()
