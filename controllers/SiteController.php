@@ -65,9 +65,13 @@ class SiteController extends \yii\web\Controller{
     public function actionAccounts(){
         $output = [];
 
-        // get wp accounts
+        // get wordpress accounts
         $wp = \app\models\EzWordpress::accounts();
         $output['wordpress'] = $wp;
+
+        // get twitter accounts
+        $tw = \app\models\EzTwitter::userTwitter();
+        $output['twitter'] = $tw;
 
         \zhexiao\helper\zxHelper::outputJson( $output );
     }

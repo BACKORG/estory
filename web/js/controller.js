@@ -14,6 +14,7 @@ ezstory
     $scope.getLinkedAccounts = function(){
         $http.get('/site/accounts').success(function(data, status, headers, config) {
             $scope.wordpressAccounts = data.wordpress;
+            $scope.twitterAccounts = data.twitter;
         })
     }
     $scope.getLinkedAccounts();
@@ -47,8 +48,8 @@ ezstory
     }
 
     // show post body
-    $scope['selectedAccounts'] = [];
-    $scope.showPostContainer = function(event){
+    $scope['selBlogAccounts'] = [];
+    $scope.showBlogContainer = function(event){
         var $obj = $(event.target),
             title = $obj.attr('data-title'),
             id = $obj.attr('data-id'),
@@ -57,18 +58,43 @@ ezstory
         
 
         // if exist selected account before and click again, then cancel it
-        if( $scope['selectedAccounts'][ selectedAccount ] ){
-            $scope['selectedAccounts'][ selectedAccount ] = false;
+        if( $scope['selBlogAccounts'][ selectedAccount ] ){
+            $scope['selBlogAccounts'][ selectedAccount ] = false;
 
             $scope.blogTitle = null;
             $scope.showBlogPostContainer = false;
         }else{
             // new selected account, show all corresponding data
-            $scope['selectedAccounts'] = [];
-            $scope['selectedAccounts'][ selectedAccount ] = true;
+            $scope['selBlogAccounts'] = [];
+            $scope['selBlogAccounts'][ selectedAccount ] = true;
 
             $scope.blogTitle = title;
             $scope.showBlogPostContainer = true;
+        }
+    }
+
+    // show twitter post body
+    $scope['selTwitterAccounts'] = [];
+    $scope.showTwitterContainer = function(event){
+        var $obj = $(event.target),
+            title = $obj.attr('data-title'),
+            id = $obj.attr('data-id'),
+            type = $obj.attr('data-type'),
+            selectedAccount = 'selected_twitter_'+id;
+
+
+        // if exist selected account before and click again, then cancel it
+        if( $scope['selTwitterAccounts'][ selectedAccount ] ){
+            delete $scope['selTwitterAccounts'][ selectedAccount ];
+        }else{
+            // new selected account, show all corresponding data
+            $scope['selTwitterAccounts'][ selectedAccount ] = true;
+        }
+
+        if($.isEmptyObject($scope['selTwitterAccounts'])){
+            $scope.showTwitterPostContainer = false;
+        }else{
+            $scope.showTwitterPostContainer = true;
         }
     }
 })

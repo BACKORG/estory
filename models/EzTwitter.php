@@ -114,7 +114,9 @@ class EzTwitter extends \yii\db\ActiveRecord
      * @param  [type] $uid [description]
      * @return [type]      [description]
      */
-    public static function userTwitter($uid){
+    public static function userTwitter($uid = null){
+        $uid = $uid ? $uid : \Yii::$app->user->identity->id;
+        
         $data = self::findAll([
             'uid' => $uid
         ]);

@@ -49,6 +49,7 @@ body {
         border: 1px solid #dfdfdf;
         box-shadow: 0px 2px 3px #dfdfdf;
         position: relative;
+        @include css3(user-select, none);
 
         .pw-span{
             display: inline-block;
@@ -64,6 +65,14 @@ body {
                 display: none;
                 z-index: 99;
                 @include css3(user-select, none);
+
+                .paw-tw{
+                    img{
+                        width: 36px;
+                        height: 36px;
+                        margin-right: 5px;
+                    }
+                }
 
                 h4{
                     padding: 10px 0;
