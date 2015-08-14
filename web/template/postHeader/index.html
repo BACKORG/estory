@@ -1,6 +1,6 @@
 <!-- wordpress  -->
 <span class="pw-span">
-    <i class="fa fa-wordpress" tooltips data-original-title="wordpress" ng-click="showAccounts($event);"></i>
+    <i class="fa fa-wordpress" ng-class="(showBlogPostContainer)?'active':''" tooltips data-original-title="wordpress" ng-click="showAccounts($event);"></i>
 
     <div class="pw-account-wrap">
         <div ng-repeat="wp in wordpressAccounts" class="repeat-ele">
@@ -19,9 +19,10 @@
     </div>
 </span>
 
+
 <!-- twitter -->
 <span class="pw-span">
-    <i class="fa fa-twitter-square" tooltips data-original-title="twitter" ng-click="showAccounts($event);"></i>
+    <i class="fa fa-twitter-square" ng-class="(showTwitterPostContainer)?'active':''" tooltips data-original-title="twitter" ng-click="showAccounts($event);"></i>
 
     <div class="pw-account-wrap">
         <div ng-repeat="tw in twitterAccounts" class="repeat-ele paw-tw">

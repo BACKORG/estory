@@ -1,8 +1,8 @@
 <!-- wordpress -->
 <div class="panel panel-default p-w-pt" data-type="wordpress" ng-show="showBlogPostContainer">
-    <div class="panel-heading p-w-pt-type">
-        <i class="fa fa-wordpress"></i>
-        <span class="selectedTitle">{{blogTitle}}</span>
+    <div class="panel-heading p-w-pt-type clearfix">
+        <i class="fa fa-wordpress pull-left"></i>
+        <span class="label label-danger pull-left selectedTitle">{{blogTitle}}</span>
     </div>
 
     <div class="panel-body">
@@ -13,8 +13,9 @@
 
 <!-- twitter -->
 <div class="panel panel-default p-w-pt" data-type="twitter" ng-show="showTwitterPostContainer">
-    <div class="panel-heading p-w-pt-type">
-        <i class="fa fa-twitter-square"></i>
+    <div class="panel-heading p-w-pt-type clearfix">
+        <i class="fa fa-twitter-square pull-left"></i>
+        <span class="label label-danger pull-left selectedTitle" ng-repeat="twTitle in selTwitterAccounts">{{twTitle}}</span>
     </div>
 
     <div class="panel-body">

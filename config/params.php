@@ -24,7 +24,7 @@ if(YII_ENV_DEV){
         'adminEmail' => 'admin@example.com',
         'TWITTER_CONSUMER_KEY' => 'DIuqIlfEIKcrucTKukqVTHJb7',
         'TWITTER_CONSUMER_SECRET' => 'xx2iBp6jw79RqMgtvEJk9CzBXjdxQWfYKGTUOtVeLg11N8tvXN',
-        'TWITTER_CALLBACK_URL' => 'http://ez.zhexiao.space/social/twitter/auth',
+        'TWITTER_CALLBACK_URL' => 'http://local.ez.com/social/twitter/auth',
         'INSTAGRAM_CLIENT_ID' => '1bbdad644b5443829415d58f58b1e63c',
         'INSTAGRAM_CLIENT_SECRET' => 'c1893512b55649b8a3193f1d05aa678a',
         'INSTAGRAM_REDIRECT_URL' => 'http://ez.zhexiao.space/social/instagram/auth',  

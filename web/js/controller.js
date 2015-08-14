@@ -48,7 +48,7 @@ ezstory
     }
 
     // show post body
-    $scope['selBlogAccounts'] = [];
+    $scope['selBlogAccounts'] = {};
     $scope.showBlogContainer = function(event){
         var $obj = $(event.target),
             title = $obj.attr('data-title'),
@@ -73,8 +73,9 @@ ezstory
         }
     }
 
+
     // show twitter post body
-    $scope['selTwitterAccounts'] = [];
+    $scope.selTwitterAccounts = {};
     $scope.showTwitterContainer = function(event){
         var $obj = $(event.target),
             title = $obj.attr('data-title'),
@@ -88,7 +89,7 @@ ezstory
             delete $scope['selTwitterAccounts'][ selectedAccount ];
         }else{
             // new selected account, show all corresponding data
-            $scope['selTwitterAccounts'][ selectedAccount ] = true;
+            $scope['selTwitterAccounts'][ selectedAccount ] = title;
         }
 
         if($.isEmptyObject($scope['selTwitterAccounts'])){
