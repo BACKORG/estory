@@ -64,6 +64,8 @@ body {
                 top: 50px;
                 display: none;
                 z-index: 99;
+                max-height: 300px;
+                overflow-y: auto;
                 @include css3(user-select, none);
 
                 .paw-tw{
@@ -78,6 +80,7 @@ body {
                     padding: 10px 0;
                     cursor: pointer;
                     margin: 5px 0;
+                    font-size: 16px;
                     border-bottom: 1px solid #ccc;
 
                     small{
@@ -93,6 +96,10 @@ body {
                        font-size: 18px;
                        color: #3FC380;
                        margin-right: 5px;
+                    }
+
+                    a:hover, a:focus{
+                        text-decoration: none;
                     }
                 }
 
@@ -130,8 +137,22 @@ body {
             }
         }
 
+        .panel-body{
+            background-color: #F5F5F5;
+            transition: all 0.3s;
+            box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+        }
+
         .p-w-pt-form{
             margin-top: 5px;
+        }
+
+        .form-control{
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
         }
     }
 }

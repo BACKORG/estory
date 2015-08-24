@@ -14,7 +14,7 @@
         </div>
 
         <div class="pwawp-d">
-            <button type="button" class="btn btn-primary margin-top-10" ng-click="loadWpForm($event);">Link Wordpress</button>
+            <button type="button" class="btn btn-primary btn-xs margin-top-10" ng-click="loadWpForm($event);">Link Wordpress</button>
         </div>
     </div>
 </span>
@@ -28,13 +28,15 @@
         <div ng-repeat="tw in twitterAccounts" class="repeat-ele paw-tw">
             <h4 ng-click="showTwitterContainer($event);" data-type="twitter" data-id="{{tw.id}}" data-title="{{tw.screen_name}}">
                 <i class="fa fa-check-circle" ng-show="selTwitterAccounts.selected_twitter_{{tw.id}}"></i>
-                <img ng-src="{{tw.profile_image_url}}" class="img-circle"/>
+                <a href="https://twitter.com/{{tw.screen_name}}" target="_blank" stop-propagation>
+                    <img ng-src="{{tw.profile_image_url}}" class="img-circle"/>
+                </a>
                 {{tw.screen_name}}
             </h4>    
         </div>
 
         <div class="pwawp-d">
-            <a href="/social/twitter/connect" type="button" class="btn btn-primary margin-top-10">Link Twitter</a>
+            <a href="/social/twitter/connect" type="button" class="btn btn-primary btn-xs margin-top-10">Link Twitter</a>
         </div>
     </div>
 </span>

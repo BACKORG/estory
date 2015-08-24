@@ -175,7 +175,7 @@ ezstory
 
 
 /**
- * stop propogation and prevent default
+ * prevent default
  */
 .directive('stopEvent', function(){
     return {
@@ -183,6 +183,20 @@ ezstory
         link : function(scope, element){
             element.on('click', function(e){
                 e.preventDefault();
+            });
+        }
+    }
+})
+
+/**
+ * stop propagation and prevent default
+ */
+.directive('stopPropagation', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.on('click', function(e){
+                e.stopPropagation();
             });
         }
     }
