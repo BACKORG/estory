@@ -201,3 +201,27 @@ ezstory
         }
     }
 })
+
+
+
+/**
+ * Editor
+ */
+.directive('ezEditor', function(){
+    return {
+        restrict: 'A',
+        link : function(scope, element){
+            element.summernote({
+                height: 300,  
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                ]
+            });
+        }
+    }
+})

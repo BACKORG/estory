@@ -28,6 +28,7 @@ class AppAsset extends AssetBundle
         'js/libs/bootstrap.min.js',
         'js/libs/jquery.magnific-popup.min.js',
         'js/libs/jquery.easing.js',
+        'js/libs/summernote.js',
         'js/app.js',
         'js/controller.js'
     ];
