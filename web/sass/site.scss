@@ -12,7 +12,7 @@ body {
 }
 
 
-#w0.navbar, .breadcrumb, .btn{
+#w0.navbar{
    @include css3(border-radius, 0);
 }
 

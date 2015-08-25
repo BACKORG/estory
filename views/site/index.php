@@ -5,7 +5,7 @@ $this->title = 'EZStory';
 
 <div class="content-wrap">
     <!-- post section -->
-    <div id="post-wrap" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" ng-controller="postCtrl">
+    <div id="post-wrap" class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-controller="postCtrl">
         <!-- load post header -->
         <div class="p-w-type clearfix" ng-include src="getPostHeaderTpl();"></div>
 
@@ -17,7 +17,7 @@ $this->title = 'EZStory';
     </div>
 
     <!-- social data section -->
-    <div id="social-wrap" class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-controller="socialCtrl">
+    <div id="social-wrap" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" ng-controller="socialCtrl">
         <div class="s-w-top">
             <div class="s-w-t-type">
                 <i class="fa fa-twitter s-w-type active" ng-click="changeType($event)" tooltips data-original-title="twitter" data-type="twitter"></i>
