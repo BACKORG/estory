@@ -1,6 +1,6 @@
 EZStory
 ================================
-
+[![Dependency Status](https://www.versioneye.com/user/projects/55df6a05c6d8f2001d000033/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55df6a05c6d8f2001d000033)
 
 
 DIRECTORY STRUCTURE
