@@ -50,6 +50,67 @@ INSERT INTO `ez_instagram` VALUES (1,1,305096535,'zhexiao27','Zhe Xiao','https:/
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ez_post_twitter`
+--
+
+DROP TABLE IF EXISTS `ez_post_twitter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ez_post_twitter` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete` tinyint(1) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `post_twitter_uid_idx` (`uid`),
+  CONSTRAINT `post_twitter_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ez_post_twitter`
+--
+
+LOCK TABLES `ez_post_twitter` WRITE;
+/*!40000 ALTER TABLE `ez_post_twitter` DISABLE KEYS */;
+INSERT INTO `ez_post_twitter` VALUES (2,1,'as dsa da','2015-08-26 23:13:04','2015-08-26 23:13:04',0),(3,1,'hehehe','2015-08-26 23:41:34','2015-08-26 23:41:34',0),(4,1,'This is test1','2015-08-26 23:45:45','2015-08-26 23:45:45',0),(5,1,'This is test2','2015-08-26 23:47:52','2015-08-26 23:47:52',0),(6,1,'this is test 3','2015-08-26 23:51:36','2015-08-26 23:51:36',0),(7,1,'this is test 3','2015-08-26 23:52:16','2015-08-26 23:52:16',0);
+/*!40000 ALTER TABLE `ez_post_twitter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ez_post_wordpress`
+--
+
+DROP TABLE IF EXISTS `ez_post_wordpress`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ez_post_wordpress` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete` tinyint(1) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `post_blog_uid_idx` (`uid`),
+  CONSTRAINT `post_blog_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ez_post_wordpress`
+--
+
+LOCK TABLES `ez_post_wordpress` WRITE;
+/*!40000 ALTER TABLE `ez_post_wordpress` DISABLE KEYS */;
+INSERT INTO `ez_post_wordpress` VALUES (1,1,'This is test2',NULL,'2015-08-26 23:47:51','2015-08-26 23:47:51',0),(2,1,'this is test 3',NULL,'2015-08-26 23:51:36','2015-08-26 23:51:36',0),(3,1,'this is test 3','<p>this is test 3 content</p>','2015-08-26 23:52:16','2015-08-26 23:52:16',0);
+/*!40000 ALTER TABLE `ez_post_wordpress` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ez_twitter`
 --
 
@@ -70,7 +131,7 @@ CREATE TABLE `ez_twitter` (
   PRIMARY KEY (`id`),
   KEY `uid_idx` (`uid`),
   CONSTRAINT `twitter_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +140,7 @@ CREATE TABLE `ez_twitter` (
 
 LOCK TABLES `ez_twitter` WRITE;
 /*!40000 ALTER TABLE `ez_twitter` DISABLE KEYS */;
-INSERT INTO `ez_twitter` VALUES (5,1,'2872411641','zoclezhe123','http://pbs.twimg.com/profile_images/532201283004813314/lwDmr-rD_normal.jpeg','2872411641-kvIVSn0I5Tp6wIspvAzx7o7RFr2prEgZmn1gI4k','YJd0tlAYyuFwkyTBqyd8tx4VbjpPvpKFj1WWqV8Qi18Re','2015-06-02 22:30:30','2015-06-02 22:31:30',0);
+INSERT INTO `ez_twitter` VALUES (5,1,'2872411641','zoclezhe123','http://pbs.twimg.com/profile_images/532201283004813314/lwDmr-rD_normal.jpeg','2872411641-kvIVSn0I5Tp6wIspvAzx7o7RFr2prEgZmn1gI4k','YJd0tlAYyuFwkyTBqyd8tx4VbjpPvpKFj1WWqV8Qi18Re','2015-06-02 22:30:30','2015-06-02 22:31:30',0),(6,1,'438198895','zhexiao27','http://pbs.twimg.com/profile_images/549956842181246977/TvHZE9_c_normal.jpeg','438198895-ZZC6lY6car7OOp2V05ScyaGEOazKMrtcJzucJTWv','Js5gIU6y9POPdvKxowAJe7IENN4vHKbTIOggsNNC4njsz','2015-08-14 00:39:02','2015-08-14 00:39:02',0);
 /*!40000 ALTER TABLE `ez_twitter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,6 +185,7 @@ CREATE TABLE `ez_wordpress` (
   `uid` int(10) unsigned DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -131,7 +193,7 @@ CREATE TABLE `ez_wordpress` (
   PRIMARY KEY (`id`),
   KEY `wordpress_uid_idx` (`uid`),
   CONSTRAINT `wordpress_uid` FOREIGN KEY (`uid`) REFERENCES `ez_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,6 +202,7 @@ CREATE TABLE `ez_wordpress` (
 
 LOCK TABLES `ez_wordpress` WRITE;
 /*!40000 ALTER TABLE `ez_wordpress` DISABLE KEYS */;
+INSERT INTO `ez_wordpress` VALUES (3,1,'zocle','aW50ZXJ0ZWNoMDE=','zocle itm','http://zocle.itmwpb.com/','2015-08-03 22:40:22','2015-08-03 22:40:22',0),(4,1,'zocle','aW50ZXJ0ZWNoMDE=','zocle itm 1','http://zocle.itmwpb.com/','2015-08-03 22:41:39','2015-08-03 22:41:39',0),(5,1,'zocle','aW50ZXJ0ZWNoMDE=','zocle itm 2','http://zocle.itmwpb.com/','2015-08-03 22:43:00','2015-08-03 22:43:00',0),(6,1,'zocle','aW50ZXJ0ZWNoMDE=','zocle itm 3','http://zocle.itmwpb.com/','2015-08-03 22:43:32','2015-08-03 22:43:32',0);
 /*!40000 ALTER TABLE `ez_wordpress` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -152,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-10  2:00:42
+-- Dump completed on 2015-08-26 23:53:04

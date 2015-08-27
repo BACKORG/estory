@@ -10,6 +10,9 @@ ezstory
  * @return {[type]}          [description]
  */
 .controller('postCtrl', function($scope, $http, $timeout, $sce, $parse){
+    // post data holder
+    $scope.post = {};
+
     // get linked accounts
     $scope.getLinkedAccounts = function(){
         $http.get('/site/accounts').success(function(data, status, headers, config) {
@@ -97,6 +100,25 @@ ezstory
         }else{
             $scope.showTwitterPostContainer = true;
         }
+    }
+
+    /**
+     * post content
+     * @return {[type]} [description]
+     */
+    $scope.postContent = function(){
+        // if exist blog post
+        if($scope.showBlogPostContainer){
+            $scope.post.wordpress.content = $('.wordpress-content').code();
+        }
+
+        $http({
+            method: 'POST',
+            url: '/compose/social/post',
+            data: $scope.post,
+        }).success(function(res){
+            
+        })
     }
 })
 

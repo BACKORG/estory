@@ -6,8 +6,8 @@
     </div>
 
     <div class="panel-body">
-        <input type="text" class="form-control p-w-pt-form" placeholder="Type your post headline...">
-        <div ez-editor></div>
+        <input type="text" class="form-control p-w-pt-form" placeholder="Type your post headline..." ng-model="post.wordpress.title">
+        <div class="wordpress-content" ez-editor></div>
     </div>
 </div>
 
@@ -19,6 +19,6 @@
     </div>
 
     <div class="panel-body">
-        <textarea class="form-control p-w-pt-form" rows="5" placeholder="Type your post body..."></textarea>
+        <textarea class="form-control p-w-pt-form" rows="5" placeholder="Type your post body..." ng-model="post.twitter.content"></textarea>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <?php
 namespace app\modules\compose\controllers;
 
-class WordpressController extends BaseController implements BaseInterface{
+class WordpressController extends BaseController{
     private $_wp_xmlrpc;
     
     /**
@@ -19,8 +19,17 @@ class WordpressController extends BaseController implements BaseInterface{
      * post data
      * @return [type] [description]
      */
-    public function actionPost(){
-
+    public static function post($dt){
+        $ezPostwp = new \app\models\EzPostWordpress;
+        $ezPostwp->setAttributes([
+            'uid' => $dt->uid,
+            'title' => $dt->title,
+            'content' => $dt->content
+        ]);
+        
+        if( !($ezPostwp->validate() && $ezPostwp->save()) ){
+            print_r($ezPostwp->getErrors());
+        }
     }
 
     /**
